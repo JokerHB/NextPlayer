@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import KGFloatingDrawer
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,6 +18,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+//        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+//        
+//        self.window?.rootViewController = drawerViewController
+//        
+//        self.window?.makeKeyAndVisible()
+//        
         return true
     }
 
@@ -106,6 +114,61 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-
+    
+    // MARK: - KGFloatingDrawer
+    private var _drawerViewController: KGDrawerViewController?
+    var drawerViewController: KGDrawerViewController {
+        get {
+            if let viewController = _drawerViewController {
+                return viewController
+            }
+            return prepareDrawerViewController();
+        }
+    }
+    
+    var _aString = ""
+    var aString: String {
+        get {
+            return _aString
+        }
+        set {
+            _aString = newValue
+        }
+    }
+    
+    func prepareDrawerViewController() -> KGDrawerViewController {
+        let drawerViewController = KGDrawerViewController()
+        
+        let centerC = viewControllerForStoryboardID("centerController") as! NextPlayerViewController
+        
+        let rightC = viewControllerForStoryboardID("rightController") as! NextPlayerFMChannelTableViewController
+    
+        //rightC.delegate = centerC;
+        
+        drawerViewController.rightViewController = rightC;
+        drawerViewController.centerViewController = centerC;
+        
+        _drawerViewController = drawerViewController
+        
+        let animator = _drawerViewController!.animator
+    
+        animator.animationDuration = 0.7
+        animator.initialSpringVelocity = 1.0
+        animator.springDamping = 5.0
+        
+        return drawerViewController
+    }
+    
+    func viewControllerForStoryboardID(storyboardID: String) -> UIViewController {
+        let viewController:UIViewController = drawerStoryboard().instantiateViewControllerWithIdentifier(storyboardID) 
+        
+        return viewController
+    }
+    
+    private func drawerStoryboard() -> UIStoryboard {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        return storyboard
+    }
 }
 

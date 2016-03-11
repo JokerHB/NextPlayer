@@ -16,6 +16,9 @@
 		F3290B691C924D6F00CF6EF2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3290B671C924D6F00CF6EF2 /* LaunchScreen.storyboard */; };
 		F3290B741C924D6F00CF6EF2 /* NextPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3290B731C924D6F00CF6EF2 /* NextPlayerTests.swift */; };
 		F3290B7F1C924D6F00CF6EF2 /* NextPlayerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3290B7E1C924D6F00CF6EF2 /* NextPlayerUITests.swift */; };
+		F3E899181C928DA3006BEEA9 /* NextPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E899171C928DA3006BEEA9 /* NextPlayerViewController.swift */; };
+		F3E8991C1C9290B8006BEEA9 /* NextPlayerFMChannelTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E8991B1C9290B8006BEEA9 /* NextPlayerFMChannelTableViewController.swift */; };
+		F3E8991F1C92992B006BEEA9 /* NextPlayerRadioImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E8991E1C92992B006BEEA9 /* NextPlayerRadioImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +56,9 @@
 		F3290B7A1C924D6F00CF6EF2 /* NextPlayerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NextPlayerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3290B7E1C924D6F00CF6EF2 /* NextPlayerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextPlayerUITests.swift; sourceTree = "<group>"; };
 		F3290B801C924D6F00CF6EF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F3E899171C928DA3006BEEA9 /* NextPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextPlayerViewController.swift; sourceTree = "<group>"; };
+		F3E8991B1C9290B8006BEEA9 /* NextPlayerFMChannelTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextPlayerFMChannelTableViewController.swift; sourceTree = "<group>"; };
+		F3E8991E1C92992B006BEEA9 /* NextPlayerRadioImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextPlayerRadioImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,8 +130,11 @@
 			isa = PBXGroup;
 			children = (
 				F3290B5B1C924D6F00CF6EF2 /* AppDelegate.swift */,
+				F3E899171C928DA3006BEEA9 /* NextPlayerViewController.swift */,
+				F3E8991B1C9290B8006BEEA9 /* NextPlayerFMChannelTableViewController.swift */,
 				F3290B5D1C924D6F00CF6EF2 /* ViewController.swift */,
 				F3290B5F1C924D6F00CF6EF2 /* Main.storyboard */,
+				F3E8991E1C92992B006BEEA9 /* NextPlayerRadioImageView.swift */,
 				F3290B651C924D6F00CF6EF2 /* Assets.xcassets */,
 				F3290B671C924D6F00CF6EF2 /* LaunchScreen.storyboard */,
 				F3290B6A1C924D6F00CF6EF2 /* Info.plist */,
@@ -337,7 +346,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3E899181C928DA3006BEEA9 /* NextPlayerViewController.swift in Sources */,
 				F3290B641C924D6F00CF6EF2 /* NextPlayer.xcdatamodeld in Sources */,
+				F3E8991F1C92992B006BEEA9 /* NextPlayerRadioImageView.swift in Sources */,
+				F3E8991C1C9290B8006BEEA9 /* NextPlayerFMChannelTableViewController.swift in Sources */,
 				F3290B5E1C924D6F00CF6EF2 /* ViewController.swift in Sources */,
 				F3290B5C1C924D6F00CF6EF2 /* AppDelegate.swift in Sources */,
 			);
