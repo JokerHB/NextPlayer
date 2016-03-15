@@ -8,7 +8,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="NextPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NextPlayerRadio" id="BYZ-38-t0r" customClass="ViewController" customModule="NextPlayer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -17,6 +17,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="test" translatesAutoresizingMaskIntoConstraints="NO" id="e96-4d-fMj">
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                            </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ANU-Lm-Glr">
                                 <rect key="frame" x="160" y="160" width="280" height="280"/>
                                 <subviews>
@@ -47,12 +50,17 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="e96-4d-fMj" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="FD8-Wo-2Fq"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="e96-4d-fMj" secondAttribute="bottom" id="QyM-wZ-YDB"/>
                             <constraint firstItem="ANU-Lm-Glr" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Xdz-8M-1op"/>
+                            <constraint firstAttribute="trailing" secondItem="e96-4d-fMj" secondAttribute="trailing" id="be3-JZ-xEC"/>
+                            <constraint firstItem="e96-4d-fMj" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="oHk-dm-huw"/>
                             <constraint firstItem="ANU-Lm-Glr" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="zmm-Aj-LSQ"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="mAlbumView" destination="VwY-hb-xgn" id="9C2-Vi-a67"/>
+                        <outlet property="mVisualEffectView" destination="e96-4d-fMj" id="BFf-qa-LMs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -62,5 +70,6 @@
     </scenes>
     <resources>
         <image name="cm2_play_disc" width="238" height="238"/>
+        <image name="test" width="720" height="450"/>
     </resources>
 </document>

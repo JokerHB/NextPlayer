@@ -8,16 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		C95EE9C64F237F2005635B36 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A6AD7E700B2D41F13833E65 /* Pods.framework */; };
+		F300A39B1C983CA4000EAD41 /* NextPlayerMediaPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F300A39A1C983CA4000EAD41 /* NextPlayerMediaPlayer.swift */; };
+		F300A39D1C9840EA000EAD41 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F300A39C1C9840EA000EAD41 /* MediaPlayer.framework */; };
+		F300A39F1C984725000EAD41 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F300A39E1C984725000EAD41 /* AVFoundation.framework */; };
+		F300A3A11C984732000EAD41 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F300A3A01C984732000EAD41 /* AVKit.framework */; };
 		F3290B5C1C924D6F00CF6EF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3290B5B1C924D6F00CF6EF2 /* AppDelegate.swift */; };
 		F3290B5E1C924D6F00CF6EF2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3290B5D1C924D6F00CF6EF2 /* ViewController.swift */; };
-		F3290B611C924D6F00CF6EF2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3290B5F1C924D6F00CF6EF2 /* Main.storyboard */; };
+		F3290B611C924D6F00CF6EF2 /* NextPlayer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3290B5F1C924D6F00CF6EF2 /* NextPlayer.storyboard */; };
 		F3290B641C924D6F00CF6EF2 /* NextPlayer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F3290B621C924D6F00CF6EF2 /* NextPlayer.xcdatamodeld */; };
 		F3290B661C924D6F00CF6EF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3290B651C924D6F00CF6EF2 /* Assets.xcassets */; };
 		F3290B691C924D6F00CF6EF2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3290B671C924D6F00CF6EF2 /* LaunchScreen.storyboard */; };
 		F3290B741C924D6F00CF6EF2 /* NextPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3290B731C924D6F00CF6EF2 /* NextPlayerTests.swift */; };
 		F3290B7F1C924D6F00CF6EF2 /* NextPlayerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3290B7E1C924D6F00CF6EF2 /* NextPlayerUITests.swift */; };
-		F3E899181C928DA3006BEEA9 /* NextPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E899171C928DA3006BEEA9 /* NextPlayerViewController.swift */; };
-		F3E8991C1C9290B8006BEEA9 /* NextPlayerFMChannelTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E8991B1C9290B8006BEEA9 /* NextPlayerFMChannelTableViewController.swift */; };
 		F3E8991F1C92992B006BEEA9 /* NextPlayerRadioImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E8991E1C92992B006BEEA9 /* NextPlayerRadioImageView.swift */; };
 /* End PBXBuildFile section */
 
@@ -42,10 +44,14 @@
 		0D3FFD98BB9D2F567EB9CEAD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		2A6AD7E700B2D41F13833E65 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECAD8118C5EC656CDD18012B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		F300A39A1C983CA4000EAD41 /* NextPlayerMediaPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextPlayerMediaPlayer.swift; sourceTree = "<group>"; };
+		F300A39C1C9840EA000EAD41 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		F300A39E1C984725000EAD41 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		F300A3A01C984732000EAD41 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		F3290B581C924D6F00CF6EF2 /* NextPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NextPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3290B5B1C924D6F00CF6EF2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F3290B5D1C924D6F00CF6EF2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		F3290B601C924D6F00CF6EF2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F3290B601C924D6F00CF6EF2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/NextPlayer.storyboard; sourceTree = "<group>"; };
 		F3290B631C924D6F00CF6EF2 /* NextPlayer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = NextPlayer.xcdatamodel; sourceTree = "<group>"; };
 		F3290B651C924D6F00CF6EF2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F3290B681C924D6F00CF6EF2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -56,8 +62,6 @@
 		F3290B7A1C924D6F00CF6EF2 /* NextPlayerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NextPlayerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3290B7E1C924D6F00CF6EF2 /* NextPlayerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextPlayerUITests.swift; sourceTree = "<group>"; };
 		F3290B801C924D6F00CF6EF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F3E899171C928DA3006BEEA9 /* NextPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextPlayerViewController.swift; sourceTree = "<group>"; };
-		F3E8991B1C9290B8006BEEA9 /* NextPlayerFMChannelTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextPlayerFMChannelTableViewController.swift; sourceTree = "<group>"; };
 		F3E8991E1C92992B006BEEA9 /* NextPlayerRadioImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextPlayerRadioImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -66,6 +70,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F300A3A11C984732000EAD41 /* AVKit.framework in Frameworks */,
+				F300A39F1C984725000EAD41 /* AVFoundation.framework in Frameworks */,
+				F300A39D1C9840EA000EAD41 /* MediaPlayer.framework in Frameworks */,
 				C95EE9C64F237F2005635B36 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -90,6 +97,9 @@
 		093E2F42D36831AC48DF5253 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F300A3A01C984732000EAD41 /* AVKit.framework */,
+				F300A39E1C984725000EAD41 /* AVFoundation.framework */,
+				F300A39C1C9840EA000EAD41 /* MediaPlayer.framework */,
 				2A6AD7E700B2D41F13833E65 /* Pods.framework */,
 			);
 			name = Frameworks;
@@ -102,6 +112,31 @@
 				0D3FFD98BB9D2F567EB9CEAD /* Pods.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		F300A3991C983C79000EAD41 /* MediaPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				F300A39A1C983CA4000EAD41 /* NextPlayerMediaPlayer.swift */,
+			);
+			name = MediaPlayer;
+			sourceTree = "<group>";
+		};
+		F300A3A31C985173000EAD41 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F300A3A41C985180000EAD41 /* Player */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		F300A3A41C985180000EAD41 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				F3E8991E1C92992B006BEEA9 /* NextPlayerRadioImageView.swift */,
+				F3290B5F1C924D6F00CF6EF2 /* NextPlayer.storyboard */,
+			);
+			name = Player;
 			sourceTree = "<group>";
 		};
 		F3290B4F1C924D6F00CF6EF2 = {
@@ -129,12 +164,10 @@
 		F3290B5A1C924D6F00CF6EF2 /* NextPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				F300A3A31C985173000EAD41 /* Views */,
+				F300A3991C983C79000EAD41 /* MediaPlayer */,
 				F3290B5B1C924D6F00CF6EF2 /* AppDelegate.swift */,
-				F3E899171C928DA3006BEEA9 /* NextPlayerViewController.swift */,
-				F3E8991B1C9290B8006BEEA9 /* NextPlayerFMChannelTableViewController.swift */,
 				F3290B5D1C924D6F00CF6EF2 /* ViewController.swift */,
-				F3290B5F1C924D6F00CF6EF2 /* Main.storyboard */,
-				F3E8991E1C92992B006BEEA9 /* NextPlayerRadioImageView.swift */,
 				F3290B651C924D6F00CF6EF2 /* Assets.xcassets */,
 				F3290B671C924D6F00CF6EF2 /* LaunchScreen.storyboard */,
 				F3290B6A1C924D6F00CF6EF2 /* Info.plist */,
@@ -273,7 +306,7 @@
 			files = (
 				F3290B691C924D6F00CF6EF2 /* LaunchScreen.storyboard in Resources */,
 				F3290B661C924D6F00CF6EF2 /* Assets.xcassets in Resources */,
-				F3290B611C924D6F00CF6EF2 /* Main.storyboard in Resources */,
+				F3290B611C924D6F00CF6EF2 /* NextPlayer.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,10 +379,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F3E899181C928DA3006BEEA9 /* NextPlayerViewController.swift in Sources */,
+				F300A39B1C983CA4000EAD41 /* NextPlayerMediaPlayer.swift in Sources */,
 				F3290B641C924D6F00CF6EF2 /* NextPlayer.xcdatamodeld in Sources */,
 				F3E8991F1C92992B006BEEA9 /* NextPlayerRadioImageView.swift in Sources */,
-				F3E8991C1C9290B8006BEEA9 /* NextPlayerFMChannelTableViewController.swift in Sources */,
 				F3290B5E1C924D6F00CF6EF2 /* ViewController.swift in Sources */,
 				F3290B5C1C924D6F00CF6EF2 /* AppDelegate.swift in Sources */,
 			);
@@ -387,12 +419,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		F3290B5F1C924D6F00CF6EF2 /* Main.storyboard */ = {
+		F3290B5F1C924D6F00CF6EF2 /* NextPlayer.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				F3290B601C924D6F00CF6EF2 /* Base */,
 			);
-			name = Main.storyboard;
+			name = NextPlayer.storyboard;
 			sourceTree = "<group>";
 		};
 		F3290B671C924D6F00CF6EF2 /* LaunchScreen.storyboard */ = {

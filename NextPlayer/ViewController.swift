@@ -12,11 +12,20 @@ import KVNProgress
 class ViewController: UIViewController {
     @IBOutlet weak var mAlbumView: NextPlayerRadioImageView!
 
+    @IBOutlet weak var mVisualEffectView: UIImageView!
+    
     var isPause: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Light)
+        let visualEffect = UIVisualEffectView.init(effect: blurEffect)
+        visualEffect.alpha = 0.88
+        visualEffect.frame = UIScreen.mainScreen().bounds
+        
+        self.mVisualEffectView.addSubview(visualEffect)
         
         // MARK: Gesture -add gesture action in radio image
         let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("radioTapped:"))
