@@ -10,12 +10,16 @@ import UIKit
 import KVNProgress
 import KGFloatingDrawer
 
-class ViewController: UIViewController, HttpProtocol, UIActionSheetDelegate  {
+class ViewController: UIViewController, HttpProtocol,ChannelProtocol, UIActionSheetDelegate  {
     @IBOutlet weak var mAlbumView: NextPlayerRadioImageView!
 
     @IBOutlet weak var mVisualEffectView: UIImageView!
     
     var infoGetFromHttp = HttpController()
+    
+    var tableData = NSArray()
+    
+    var channelData = NSArray()
     
     var isPause: Bool = false
     
@@ -25,6 +29,7 @@ class ViewController: UIViewController, HttpProtocol, UIActionSheetDelegate  {
         
         self.infoGetFromHttp.delegate = self
         self.infoGetFromHttp.onSearch("https://douban.fm/j/mine/playlist?type=n&channel=0&from=mainsite")
+        self.infoGetFromHttp.onSearch("https://douban.fm/j/app/radio/channels")
         
         let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Light)
         let visualEffect = UIVisualEffectView.init(effect: blurEffect)
@@ -80,19 +85,41 @@ class ViewController: UIViewController, HttpProtocol, UIActionSheetDelegate  {
                 print("Left")
                 
                 let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-                appDelegate.drawerViewController.toggleDrawer(KGDrawerSide.Right, animated: true) { (finished) -> Void
-                    in
+                appDelegate.drawerViewController.toggleDrawer(KGDrawerSide.Right, animated: true) { (finished) -> Void in
+                    
+                    let typesView = appDelegate.drawerViewController.rightViewController as! TypesTableViewController
+                    
+                    typesView.channelData = self.channelData
+                    typesView.delegate = self
+                    typesView.tableView.reloadData()
                 }
                 
                 break
             case UISwipeGestureRecognizerDirection.Right:
                 print("Right")
+            
+                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                appDelegate.drawerViewController.toggleDrawer(KGDrawerSide.Left, animated: true) { (finished) -> Void in
+                    
+                    let songsView = appDelegate.drawerViewController.leftViewController as! SongsTableViewController
+                    
+                    songsView.tableData = self.tableData
+            }
             default:
                 break;
         }
     }
 
     func didReceiveResults(results: NSDictionary?) {
+        if var _results = results {
+            if var _channelData = _results["channels"] as? NSArray {
+                self.channelData = _channelData
+            }
+            
+        }
+    }
+    
+    func onChnageChannel(channel_id: String) {
         
     }
 }

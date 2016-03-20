@@ -127,6 +127,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         drawerViewController.centerViewController = viewControllerForStoryboardId("MainView")
         drawerViewController.rightViewController = viewControllerForStoryboardId("TypesView")
+        drawerViewController.leftViewController =
+            viewControllerForStoryboardId("SongView")
         //背景图片
         drawerViewController.backgroundImage = UIImage(named: "test")
         

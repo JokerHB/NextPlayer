@@ -9,10 +9,6 @@
 import Foundation
 import UIKit
 
-protocol HttpProtocol {
-    func didReceiveResults(results: NSDictionary?)
-}
-
 class HttpController: NSObject {
     var delegate: HttpProtocol?
     

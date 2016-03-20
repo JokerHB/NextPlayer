@@ -1,22 +1,20 @@
 //
-//  TypesTableViewController.swift
-//  NextPlayer
+//  SongsTableViewController.swift
+//  
 //
 //  Created by 靳洪博 on 16/3/20.
-//  Copyright © 2016年 joker. All rights reserved.
+//
 //
 
 import UIKit
 
-class TypesTableViewController: UITableViewController {
-    
-    var channelData = NSArray()
-    
-    var delegate: ChannelProtocol?
+class SongsTableViewController: UITableViewController {
+
+    var tableData = NSArray()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -38,43 +36,41 @@ class TypesTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return self.channelData.count
-//        return 10
+        return self.tableData.count
     }
 
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "TypesCell")
-        let rowData = self.channelData[indexPath.row] as! NSDictionary
-        let channel_id = rowData["channel_id"]! as AnyObject
-        let channel = "channel=\(channel_id)"
         
-        self.delegate?.onChnageChannel(channel)
+        let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "SongCell")
+        let rowData = self.tableData[indexPath.row] as! NSDictionary
+        let url = rowData["picture"] as! String
+        let imgUrl = NSURL(string: url)
+        let request = NSURLRequest(URL: imgUrl!)
         
-        cell.textLabel?.text = rowData["name"] as? String
+        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: {(response: NSURLResponse?, data: NSData?, error: NSError?) -> Void in
         
-        print("row data \(rowData)")
+            if let _data = data {
+                let img = UIImage(data: _data)
+               
+                cell.imageView?.image = img
+            } else {
+                cell.imageView?.image = UIImage(named: "test")
+            }
+        })
+        
+        cell.textLabel?.text = rowData["title"] as! String
+        cell.detailTextLabel?.text = rowData["artist"] as! String
         
         return cell
     }
 
-    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        cell.layer.transform = CATransform3DMakeScale(0.1, 0.1, 1)
-        
-        UIView.animateWithDuration(0.25, animations: {() -> Void in
-            cell.layer.transform = CATransform3DMakeScale(1, 1, 1)
-        })
-    }
-    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("select \(indexPath.row)")
         
         self.tableView.deselectRowAtIndexPath(self.tableView.indexPathForSelectedRow!, animated: true)
     }
-    
-    func onChnageChannel(channel_id: String) {
-        
-    }
-    
+
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
