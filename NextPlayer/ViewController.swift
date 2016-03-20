@@ -9,16 +9,21 @@
 import UIKit
 import KVNProgress
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, HttpProtocol, UIActionSheetDelegate  {
     @IBOutlet weak var mAlbumView: NextPlayerRadioImageView!
 
     @IBOutlet weak var mVisualEffectView: UIImageView!
+    
+    var infoGetFromHttp = HttpController()
     
     var isPause: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        self.infoGetFromHttp.delegate = self
+        self.infoGetFromHttp.onSearch("https://douban.fm/j/mine/playlist?type=n&channel=0&from=mainsite")
         
         let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Light)
         let visualEffect = UIVisualEffectView.init(effect: blurEffect)
@@ -35,6 +40,15 @@ class ViewController: UIViewController {
         self.mAlbumView.albumView?.image = UIImage(named: "test")
         self.mAlbumView.startRotating()
         self.isPause = false
+        
+        // MARK: Gesture - slip
+        //右划
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: "handleSwipeGesture:")
+        self.view.addGestureRecognizer(swipeGesture)
+        //左划
+        let swipeLeftGesture = UISwipeGestureRecognizer(target: self, action: "handleSwipeGesture:")
+        swipeLeftGesture.direction = UISwipeGestureRecognizerDirection.Left //不设置是右
+        self.view.addGestureRecognizer(swipeLeftGesture)
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -54,6 +68,25 @@ class ViewController: UIViewController {
             self.isPause = true
             self.mAlbumView.pauseRotating()
         }
+    }
+    
+    func handleSwipeGesture(sender: UISwipeGestureRecognizer){
+        //划动的方向
+        let direction = sender.direction
+        //判断是上下左右
+        switch (direction){
+        case UISwipeGestureRecognizerDirection.Left:
+            print("Left")
+            break
+        case UISwipeGestureRecognizerDirection.Right:
+            print("Right")
+        default:
+            break;
+        }
+    }
+
+    func didReceiveResults(results: NSDictionary?) {
+        
     }
 }
 
