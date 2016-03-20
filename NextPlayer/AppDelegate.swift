@@ -15,8 +15,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
+    private var _drawerViewController: KGDrawerViewController?
+    var drawerViewController: KGDrawerViewController {
+        get {
+            if let viewController = _drawerViewController {
+                return viewController
+            }
+            return prepareDrawerViewController()
+        }
+    }
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        window?.rootViewController = drawerViewController
+        window?.makeKeyAndVisible()
         
         return true
     }
@@ -106,6 +119,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 abort()
             }
         }
+    }
+    
+    func prepareDrawerViewController() -> KGDrawerViewController {
+        
+        let drawerViewController = KGDrawerViewController()
+        
+        drawerViewController.centerViewController = viewControllerForStoryboardId("MainView")
+        drawerViewController.rightViewController = viewControllerForStoryboardId("TypesView")
+        //背景图片
+        drawerViewController.backgroundImage = UIImage(named: "test")
+        
+        _drawerViewController = drawerViewController
+        
+        return drawerViewController
+    }
+    
+    private func drawerStoryboard() -> UIStoryboard {
+        let storyboard = UIStoryboard(name: "NextPlayer", bundle: nil)
+        
+        return storyboard
+    }
+    
+    private func viewControllerForStoryboardId(storyboardId: String) -> UIViewController {
+        let viewController: UIViewController = drawerStoryboard().instantiateViewControllerWithIdentifier(storyboardId)
+        
+        return viewController
     }
 }
 

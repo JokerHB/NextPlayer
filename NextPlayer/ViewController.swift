@@ -8,6 +8,7 @@
 
 import UIKit
 import KVNProgress
+import KGFloatingDrawer
 
 class ViewController: UIViewController, HttpProtocol, UIActionSheetDelegate  {
     @IBOutlet weak var mAlbumView: NextPlayerRadioImageView!
@@ -75,13 +76,19 @@ class ViewController: UIViewController, HttpProtocol, UIActionSheetDelegate  {
         let direction = sender.direction
         //判断是上下左右
         switch (direction){
-        case UISwipeGestureRecognizerDirection.Left:
-            print("Left")
-            break
-        case UISwipeGestureRecognizerDirection.Right:
-            print("Right")
-        default:
-            break;
+            case UISwipeGestureRecognizerDirection.Left:
+                print("Left")
+                
+                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                appDelegate.drawerViewController.toggleDrawer(KGDrawerSide.Right, animated: true) { (finished) -> Void
+                    in
+                }
+                
+                break
+            case UISwipeGestureRecognizerDirection.Right:
+                print("Right")
+            default:
+                break;
         }
     }
 
