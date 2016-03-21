@@ -84,17 +84,17 @@
                                     <constraint firstAttribute="width" constant="280" id="hkc-UD-iH0"/>
                                 </constraints>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wO7-MZ-gsj">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wO7-MZ-gsj">
                                 <rect key="frame" x="287" y="602" width="41" height="41"/>
                                 <state key="normal" image="cm2_play_btn_play"/>
                                 <connections>
                                     <action selector="PlayMusic:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Rxj-Fv-PK3"/>
                                 </connections>
                             </button>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="7xI-jK-eIW">
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="7xI-jK-eIW">
                                 <rect key="frame" x="48" y="554" width="280" height="2"/>
                             </progressView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e5g-6x-LVe">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e5g-6x-LVe">
                                 <rect key="frame" x="48" y="602" width="41" height="41"/>
                                 <state key="normal" image="cm2_play_btn_pause"/>
                                 <connections>
@@ -104,11 +104,18 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="wO7-MZ-gsj" firstAttribute="top" secondItem="e5g-6x-LVe" secondAttribute="top" id="E1o-SK-Blb"/>
                             <constraint firstItem="e96-4d-fMj" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-20" id="FD8-Wo-2Fq"/>
+                            <constraint firstItem="7xI-jK-eIW" firstAttribute="leading" secondItem="ANU-Lm-Glr" secondAttribute="leading" id="JOU-Ld-n7T"/>
+                            <constraint firstItem="7xI-jK-eIW" firstAttribute="top" secondItem="VwY-hb-xgn" secondAttribute="bottom" constant="80" id="QdF-dK-Lga"/>
+                            <constraint firstItem="7xI-jK-eIW" firstAttribute="leading" secondItem="e5g-6x-LVe" secondAttribute="leading" id="Qeb-me-nlo"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="e96-4d-fMj" secondAttribute="bottom" id="QyM-wZ-YDB"/>
+                            <constraint firstItem="7xI-jK-eIW" firstAttribute="trailing" secondItem="wO7-MZ-gsj" secondAttribute="trailing" id="STV-k1-mzu"/>
                             <constraint firstItem="ANU-Lm-Glr" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Xdz-8M-1op"/>
                             <constraint firstAttribute="trailing" secondItem="e96-4d-fMj" secondAttribute="trailing" id="be3-JZ-xEC"/>
+                            <constraint firstItem="e5g-6x-LVe" firstAttribute="top" secondItem="7xI-jK-eIW" secondAttribute="bottom" constant="46" id="k2Z-OI-JBc"/>
                             <constraint firstItem="e96-4d-fMj" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="oHk-dm-huw"/>
+                            <constraint firstItem="7xI-jK-eIW" firstAttribute="width" secondItem="VwY-hb-xgn" secondAttribute="width" id="v0J-Au-9bo"/>
                             <constraint firstItem="ANU-Lm-Glr" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="zmm-Aj-LSQ"/>
                         </constraints>
                     </view>

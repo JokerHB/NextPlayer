@@ -26,6 +26,10 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, UIActionSh
     
     var lastSongURL: String?
     
+    var needleImageView: UIImageView!
+    
+    var needleOrignTransfrom: CGAffineTransform!
+    
     var player = NextPlayerMediaPlayer.playerInstance
     
     var isPause: Bool = false
@@ -44,6 +48,13 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, UIActionSh
         visualEffect.frame = UIScreen.mainScreen().bounds
         self.mVisualEffectView.image = UIImage(named: "back")
         self.mVisualEffectView.addSubview(visualEffect)
+        
+        // MARK: Needle 
+        self.needleImageView = UIImageView(frame: CGRectMake(view.bounds.width / 2 - 50, view.bounds.height / 10, 96, 153))
+        self.needleImageView.image = UIImage(named: "cm2_play_disc_needle")
+        self.setArchorPoint(CGPoint(x: 0.25, y: 0.16), view: self.needleImageView)
+        self.needleOrignTransfrom = self.needleImageView.transform
+        self.view.addSubview(self.needleImageView)
         
         // MARK: Gesture -add gesture action in radio image
 //        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("radioTapped:"))
@@ -78,6 +89,13 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, UIActionSh
     
     @IBAction func PlayMusic(sender: AnyObject) {
         if self.player.getState() == PlayState.PAUSING {
+            UIView.animateWithDuration(0.5, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {() -> Void in
+                self.needleImageView.transform = self.needleOrignTransfrom
+                
+                }, completion: {(finish: Bool) -> Void in
+                    
+            })
+
             self.isPause = false
             self.mAlbumView.resumeRotating()
             self.player.resumePlaying()
@@ -87,6 +105,14 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, UIActionSh
     
     @IBAction func PauseMusic(sender: AnyObject) {
         if self.player.getState() == PlayState.PLAYING {
+            
+            UIView.animateWithDuration(0.5, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {() -> Void in
+                self.needleImageView.transform = CGAffineTransformMakeRotation(-CGFloat(M_PI / 5.0))
+                
+                }, completion: {(finish: Bool) -> Void in
+                    
+            })
+
             self.isPause = true
             self.mAlbumView.pauseRotating()
             self.player.pausePlaying()
@@ -141,6 +167,13 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, UIActionSh
             default:
                 break;
         }
+    }
+    
+    func setArchorPoint(anchorPoint: CGPoint, view: UIView) {
+        let tmpLayer = view.layer
+        
+        view.layer.anchorPoint = anchorPoint
+        view.layer.position = tmpLayer.position
     }
     
     func onSetImage(img: UIImage) {
