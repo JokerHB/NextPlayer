@@ -21,7 +21,7 @@ enum WorkMode {
     case LOCAL
 }
 
-class NextPlayerMediaPlayer {
+class NextPlayerMediaPlayer: NSObject {
     // single patten
     internal static let playerInstance = NextPlayerMediaPlayer()
     
@@ -32,7 +32,8 @@ class NextPlayerMediaPlayer {
     private var currentTimeText = "--:--"
     private var endTimeText = "--:--"
     
-    private init() {
+    private override init() {
+        super.init()
         print("NextPlayerMediaPlayer Object Created")
     }
     
@@ -65,7 +66,8 @@ class NextPlayerMediaPlayer {
             self.timer?.invalidate()
             self.currentTimeText = "00:00"
             self.endTimeText = self.timerFormater(self.audioPlayer.duration)
-            self.timer = NSTimer(timeInterval: 0.4, target: self, selector: "updateTime:", userInfo: nil, repeats: true)
+            self.timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "updateTime", userInfo: nil, repeats: true)
+            self.timer?.fire()
         } else {
             self.workmode = WorkMode.LOCAL
         }
@@ -80,6 +82,7 @@ class NextPlayerMediaPlayer {
     func resumePlaying() {
         self.audioPlayer.play()
         self.playstate = PlayState.PLAYING
+        self.timer = NSTimer.scheduledTimerWithTimeInterval(0.4, target: self, selector: "updateTime", userInfo: nil, repeats: true)
         self.timer?.fire()
     }
     
@@ -88,11 +91,12 @@ class NextPlayerMediaPlayer {
         self.playstate = PlayState.STOPING
     }
     
-    func updateTime() -> Void {
+    func updateTime() {
         let c = self.audioPlayer.currentPlaybackTime
         
         if c > 0 {
             self.currentTimeText = self.timerFormater(c)
+//            print(self.currentTimeText)
         }
     }
     
@@ -117,7 +121,7 @@ class NextPlayerMediaPlayer {
                 format += "\(s)"
             }
         }
-        print(format)
+//        print(format)
         return format
     }
 }
