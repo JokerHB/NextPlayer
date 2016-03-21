@@ -45,10 +45,6 @@ class TypesTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "TypesCell")
         let rowData = self.channelData[indexPath.row] as! NSDictionary
-        let channel_id = rowData["channel_id"]! as AnyObject
-        let channel = "channel=\(channel_id)"
-        
-        self.delegate?.onChnageChannel(channel)
         
         cell.textLabel?.text = rowData["name"] as? String
         
@@ -67,12 +63,13 @@ class TypesTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("select \(indexPath.row)")
+        let rowData = self.channelData[indexPath.row] as! NSDictionary
+        let channel_id = rowData["channel_id"]! as AnyObject
+        let channel = "channel=\(channel_id)"
+        
+        self.delegate?.onChnageChannel(channel)
         
         self.tableView.deselectRowAtIndexPath(self.tableView.indexPathForSelectedRow!, animated: true)
-    }
-    
-    func onChnageChannel(channel_id: String) {
-        
     }
     
     /*

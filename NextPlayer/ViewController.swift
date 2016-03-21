@@ -104,6 +104,7 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, UIActionSh
                     let songsView = appDelegate.drawerViewController.leftViewController as! SongsTableViewController
                     
                     songsView.tableData = self.tableData
+                    songsView.tableView.reloadData()
             }
             default:
                 break;
@@ -115,12 +116,16 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, UIActionSh
             if var _channelData = _results["channels"] as? NSArray {
                 self.channelData = _channelData
             }
-            
+            if var _songData = _results["song"] as? NSArray {
+                self.tableData = _songData
+            }
         }
     }
     
     func onChnageChannel(channel_id: String) {
-        
+        let url = "https://douban.fm/j/mine/playlist?type=n&\(channel_id)&from=mainsite"
+        print("channel id is \(channel_id)")
+        self.infoGetFromHttp.onSearch(url)
     }
 }
 
