@@ -7,10 +7,15 @@
 //
 
 import UIKit
+import KGFloatingDrawer
 
 class SongsTableViewController: UITableViewController {
 
+    var imageCache = Dictionary<String, UIImage>()
+    
     var tableData = NSArray()
+    
+    var palyer = NextPlayerMediaPlayer.playerInstance
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,16 +53,23 @@ class SongsTableViewController: UITableViewController {
         let imgUrl = NSURL(string: url)
         let request = NSURLRequest(URL: imgUrl!)
         
-        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: {(response: NSURLResponse?, data: NSData?, error: NSError?) -> Void in
+//        cell.imageView?.image = UIImage(named: "test")
         
-            if let _data = data {
-                let img = UIImage(data: _data)
-               
-                cell.imageView?.image = img
-            } else {
-                cell.imageView?.image = UIImage(named: "test")
-            }
-        })
+        if let image = self.imageCache[url] {
+            cell.imageView?.image = image
+        } else {
+            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: {(response: NSURLResponse?, data: NSData?, error: NSError?) -> Void in
+                
+                if let _data = data {
+                    let img = UIImage(data: _data)
+                    
+                    self.imageCache[url] = img
+                    cell.imageView?.image = img
+                } else {
+                    cell.imageView?.image = UIImage(named: "test")
+                }
+            })
+        }
         
         cell.textLabel?.text = rowData["title"] as! String
         cell.detailTextLabel?.text = rowData["artist"] as! String
@@ -67,10 +79,50 @@ class SongsTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("select \(indexPath.row)")
+        let rowData = self.tableData[indexPath.row] as! NSDictionary
+        let url = rowData["url"] as! String
+        
+        self.palyer.startPlaying(WorkMode.FM, url: url)
         
         self.tableView.deselectRowAtIndexPath(self.tableView.indexPathForSelectedRow!, animated: true)
+        
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        appDelegate.drawerViewController.closeDrawer(KGDrawerSide.Left, animated: true, complete: {(finished: Bool) -> Void in
+                let centerView = appDelegate.drawerViewController.centerViewController as! ViewController
+                let songData = self.tableData[indexPath.row] as! NSDictionary
+                let url_pic = songData["picture"] as! String
+                let imgUrl = NSURL(string: url_pic)
+                let request = NSURLRequest(URL: imgUrl!)
+            
+                centerView.mAlbumView.startRotating()
+            
+                if let image = self.imageCache[url_pic] {
+                    centerView.onSetImage(image)
+                } else {
+                    NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: {(response: NSURLResponse?, data: NSData?, error: NSError?) -> Void in
+                        
+                        if let _data = data {
+                            let img = UIImage(data: _data)
+                            
+                            self.imageCache[url_pic] = img
+                            centerView.onSetImage(img!)
+                            
+                        } else {
+                            centerView.mVisualEffectView.image = UIImage(named: "back")
+                        }
+                    })
+                }
+            })
     }
 
+    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        cell.layer.transform = CATransform3DMakeScale(0.1, 0.1, 1)
+        
+        UIView.animateWithDuration(0.25, animations: {() -> Void in
+            cell.layer.transform = CATransform3DMakeScale(1, 1, 1)
+        })
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

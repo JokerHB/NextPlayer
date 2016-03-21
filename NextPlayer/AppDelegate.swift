@@ -16,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     private var _drawerViewController: KGDrawerViewController?
+    
     var drawerViewController: KGDrawerViewController {
         get {
             if let viewController = _drawerViewController {

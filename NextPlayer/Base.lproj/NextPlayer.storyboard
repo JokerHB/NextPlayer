@@ -84,6 +84,23 @@
                                     <constraint firstAttribute="width" constant="280" id="hkc-UD-iH0"/>
                                 </constraints>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wO7-MZ-gsj">
+                                <rect key="frame" x="287" y="602" width="41" height="41"/>
+                                <state key="normal" image="cm2_play_btn_play"/>
+                                <connections>
+                                    <action selector="PlayMusic:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Rxj-Fv-PK3"/>
+                                </connections>
+                            </button>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="7xI-jK-eIW">
+                                <rect key="frame" x="48" y="554" width="280" height="2"/>
+                            </progressView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e5g-6x-LVe">
+                                <rect key="frame" x="48" y="602" width="41" height="41"/>
+                                <state key="normal" image="cm2_play_btn_pause"/>
+                                <connections>
+                                    <action selector="PauseMusic:" destination="BYZ-38-t0r" eventType="touchUpInside" id="r8j-6v-FFj"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -144,6 +161,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="cm2_play_btn_pause" width="41" height="41"/>
+        <image name="cm2_play_btn_play" width="41" height="41"/>
         <image name="cm2_play_disc" width="238" height="238"/>
         <image name="test" width="720" height="450"/>
     </resources>

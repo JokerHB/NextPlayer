@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import KGFloatingDrawer
 
 class TypesTableViewController: UITableViewController {
     
     var channelData = NSArray()
     
     var delegate: ChannelProtocol?
+    
+    var player = NextPlayerMediaPlayer.playerInstance
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,6 +73,12 @@ class TypesTableViewController: UITableViewController {
         self.delegate?.onChnageChannel(channel)
         
         self.tableView.deselectRowAtIndexPath(self.tableView.indexPathForSelectedRow!, animated: true)
+        
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        appDelegate.drawerViewController.closeDrawer(KGDrawerSide.Right, animated: true, complete: {(finished: Bool) -> Void in
+            // do sth
+        })
+
     }
     
     /*

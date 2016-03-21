@@ -62,9 +62,10 @@ class NextPlayerMediaPlayer {
             
             self.playstate = PlayState.PLAYING
             
+            self.timer?.invalidate()
             self.currentTimeText = "00:00"
             self.endTimeText = self.timerFormater(self.audioPlayer.duration)
-            self.timer = NSTimer(timeInterval: 0.4, target: self, selector: "updateTime", userInfo: nil, repeats: true)
+            self.timer = NSTimer(timeInterval: 0.4, target: self, selector: "updateTime:", userInfo: nil, repeats: true)
         } else {
             self.workmode = WorkMode.LOCAL
         }
@@ -73,6 +74,13 @@ class NextPlayerMediaPlayer {
     func pausePlaying() {
         self.audioPlayer.pause()
         self.playstate = PlayState.PAUSING
+        self.timer?.invalidate()
+    }
+    
+    func resumePlaying() {
+        self.audioPlayer.play()
+        self.playstate = PlayState.PLAYING
+        self.timer?.fire()
     }
     
     func stopPlaying() {
@@ -109,7 +117,7 @@ class NextPlayerMediaPlayer {
                 format += "\(s)"
             }
         }
-        
+        print(format)
         return format
     }
 }
