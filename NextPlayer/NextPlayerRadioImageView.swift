@@ -55,11 +55,15 @@ class NextPlayerRadioImageView: UIImageView {
     }
     
     func resumeRotating() {
+        // MARK resume time: the current should get when you need, can not get before you use
         let pausedTIme = self.layer.timeOffset
-        let timeSincePause = self.layer.convertTime(CACurrentMediaTime(), fromLayer: nil) - pausedTIme
         
         self.layer.speed = 1.0
         self.layer.timeOffset = 0.0
-        self.layer.beginTime = timeSincePause
+        self.layer.beginTime = 0.0
+        
+        let timeSincePause = self.layer.convertTime(CACurrentMediaTime(), fromLayer: nil) - pausedTIme
+        
+        layer.beginTime = timeSincePause
     }
  }

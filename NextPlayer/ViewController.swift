@@ -199,7 +199,7 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, UIActionSh
             print("next song on search")
             self.infoGetFromHttp.onSearch(_lastSongURL)
         }
-        self.mAlbumView.stopAnimating()
+        self.mAlbumView.pauseRotating()
     }
 }
 

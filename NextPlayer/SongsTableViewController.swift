@@ -82,8 +82,6 @@ class SongsTableViewController: UITableViewController {
         let rowData = self.tableData[indexPath.row] as! NSDictionary
         let url = rowData["url"] as! String
         
-        self.palyer.startPlaying(WorkMode.FM, url: url)
-        
         self.tableView.deselectRowAtIndexPath(self.tableView.indexPathForSelectedRow!, animated: true)
         
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -93,8 +91,6 @@ class SongsTableViewController: UITableViewController {
                 let url_pic = songData["picture"] as! String
                 let imgUrl = NSURL(string: url_pic)
                 let request = NSURLRequest(URL: imgUrl!)
-            
-                centerView.mAlbumView.startRotating()
             
                 if let image = self.imageCache[url_pic] {
                     centerView.onSetImage(image)
@@ -112,7 +108,10 @@ class SongsTableViewController: UITableViewController {
                         }
                     })
                 }
+                 centerView.mAlbumView.startRotating()
             })
+        
+        self.palyer.startPlaying(WorkMode.FM, url: url)
     }
 
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
