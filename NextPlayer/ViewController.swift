@@ -11,10 +11,16 @@ import KVNProgress
 import KGFloatingDrawer
 import MediaPlayer
 
-class ViewController: UIViewController, HttpProtocol,ChannelProtocol, UIActionSheetDelegate  {
+class ViewController: UIViewController, HttpProtocol,ChannelProtocol, ProgressProtocol, UIActionSheetDelegate  {
     @IBOutlet weak var mAlbumView: NextPlayerRadioImageView!
 
     @IBOutlet weak var mVisualEffectView: UIImageView!
+    
+    @IBOutlet weak var progressView: UIProgressView!
+    
+    @IBOutlet weak var cuttentTimeLabel: UILabel!
+    
+    @IBOutlet weak var endTimeLabel: UILabel!
     
     var infoGetFromHttp = HttpController()
     
@@ -38,6 +44,8 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, UIActionSh
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        self.player.delegate = self
+        
         self.infoGetFromHttp.delegate = self
 //        self.infoGetFromHttp.onSearch("https://douban.fm/j/mine/playlist?type=n&channel=0&from=mainsite")
         self.infoGetFromHttp.onSearch("https://douban.fm/j/app/radio/channels")
@@ -55,6 +63,12 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, UIActionSh
         self.setArchorPoint(CGPoint(x: 0.25, y: 0.16), view: self.needleImageView)
         self.needleOrignTransfrom = self.needleImageView.transform
         self.view.addSubview(self.needleImageView)
+        UIView.animateWithDuration(0.5, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {() -> Void in
+            self.needleImageView.transform = CGAffineTransformMakeRotation(-CGFloat(M_PI / 5.0))
+            
+            }, completion: {(finish: Bool) -> Void in
+                
+        })
         
         // MARK: Gesture -add gesture action in radio image
 //        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("radioTapped:"))
@@ -64,6 +78,12 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, UIActionSh
 //        self.mAlbumView.albumView?.image = UIImage(named: "test")
 //        self.mAlbumView.startRotating()
 //        self.isPause = false
+        
+        // MARK: progroess bar
+        self.progressView.progress = 0.0
+        self.progressView.progressTintColor = UIColor.whiteColor()
+        self.progressView.trackTintColor = UIColor.blackColor()
+        
         
         // MARK: Gesture - slip
         //右划
@@ -215,6 +235,14 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, UIActionSh
                 
                 self.player.startPlaying(WorkMode.FM, url: url_song)
                 self.mAlbumView.startRotating()
+                self.mAlbumView.pauseRotating()
+                self.mAlbumView.resumeRotating()
+                UIView.animateWithDuration(0.5, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {() -> Void in
+                    self.needleImageView.transform = self.needleOrignTransfrom
+                    
+                    }, completion: {(finish: Bool) -> Void in
+                        
+                })
             }
         }
     }
@@ -228,11 +256,20 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, UIActionSh
     }
     
     func getNextSong(notification: NSNotification) {
+        self.mAlbumView.pauseRotating()
+        self.endTimeLabel.text = "--:--"
+        self.cuttentTimeLabel.text = "--:--"
         if let _lastSongURL = self.lastSongURL {
             print("next song on search")
             self.infoGetFromHttp.onSearch(_lastSongURL)
         }
-        self.mAlbumView.pauseRotating()
+    }
+    
+    func updateProcess(currentTime: String, endTime: String, process: Float) {
+        print("update process \(currentTime)    \(endTime)   \(process)")
+        self.progressView.setProgress(process, animated: true)
+        self.endTimeLabel.text = endTime
+        self.cuttentTimeLabel.text = currentTime
     }
 }
 

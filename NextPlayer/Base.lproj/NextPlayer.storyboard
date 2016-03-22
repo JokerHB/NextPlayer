@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Songs Table View Controller-->
@@ -101,18 +102,40 @@
                                     <action selector="PauseMusic:" destination="BYZ-38-t0r" eventType="touchUpInside" id="r8j-6v-FFj"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--:--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j0v-M0-YZZ">
+                                <rect key="frame" x="65" y="525" width="55" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--:--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cen-lK-qar">
+                                <rect key="frame" x="257" y="525" width="55" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="55" id="ZZ8-Q6-D19"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="cen-lK-qar" firstAttribute="top" secondItem="ANU-Lm-Glr" secondAttribute="bottom" constant="51" id="0l2-QQ-GRv"/>
+                            <constraint firstItem="cen-lK-qar" firstAttribute="top" secondItem="j0v-M0-YZZ" secondAttribute="top" id="CqW-U9-CPN"/>
                             <constraint firstItem="wO7-MZ-gsj" firstAttribute="top" secondItem="e5g-6x-LVe" secondAttribute="top" id="E1o-SK-Blb"/>
                             <constraint firstItem="e96-4d-fMj" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-20" id="FD8-Wo-2Fq"/>
+                            <constraint firstItem="cen-lK-qar" firstAttribute="width" secondItem="j0v-M0-YZZ" secondAttribute="width" id="GZJ-Mt-079"/>
                             <constraint firstItem="7xI-jK-eIW" firstAttribute="leading" secondItem="ANU-Lm-Glr" secondAttribute="leading" id="JOU-Ld-n7T"/>
+                            <constraint firstItem="cen-lK-qar" firstAttribute="height" secondItem="j0v-M0-YZZ" secondAttribute="height" id="PJx-ad-XCl"/>
                             <constraint firstItem="7xI-jK-eIW" firstAttribute="top" secondItem="VwY-hb-xgn" secondAttribute="bottom" constant="80" id="QdF-dK-Lga"/>
                             <constraint firstItem="7xI-jK-eIW" firstAttribute="leading" secondItem="e5g-6x-LVe" secondAttribute="leading" id="Qeb-me-nlo"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="e96-4d-fMj" secondAttribute="bottom" id="QyM-wZ-YDB"/>
+                            <constraint firstItem="7xI-jK-eIW" firstAttribute="top" secondItem="cen-lK-qar" secondAttribute="bottom" constant="8" symbolic="YES" id="SPi-gf-bdG"/>
                             <constraint firstItem="7xI-jK-eIW" firstAttribute="trailing" secondItem="wO7-MZ-gsj" secondAttribute="trailing" id="STV-k1-mzu"/>
                             <constraint firstItem="ANU-Lm-Glr" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Xdz-8M-1op"/>
+                            <constraint firstItem="j0v-M0-YZZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="49" id="a4O-S8-OIi"/>
                             <constraint firstAttribute="trailing" secondItem="e96-4d-fMj" secondAttribute="trailing" id="be3-JZ-xEC"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="cen-lK-qar" secondAttribute="trailing" constant="47" id="fAs-ux-obY"/>
                             <constraint firstItem="e5g-6x-LVe" firstAttribute="top" secondItem="7xI-jK-eIW" secondAttribute="bottom" constant="46" id="k2Z-OI-JBc"/>
                             <constraint firstItem="e96-4d-fMj" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="oHk-dm-huw"/>
                             <constraint firstItem="7xI-jK-eIW" firstAttribute="width" secondItem="VwY-hb-xgn" secondAttribute="width" id="v0J-Au-9bo"/>
@@ -121,8 +144,11 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="cuttentTimeLabel" destination="j0v-M0-YZZ" id="I21-8Y-ZXi"/>
+                        <outlet property="endTimeLabel" destination="cen-lK-qar" id="2Sz-e1-NN6"/>
                         <outlet property="mAlbumView" destination="VwY-hb-xgn" id="9C2-Vi-a67"/>
                         <outlet property="mVisualEffectView" destination="e96-4d-fMj" id="BFf-qa-LMs"/>
+                        <outlet property="progressView" destination="7xI-jK-eIW" id="eQU-lh-WyP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

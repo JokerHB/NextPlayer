@@ -108,7 +108,16 @@ class SongsTableViewController: UITableViewController {
                         }
                     })
                 }
-                 centerView.mAlbumView.startRotating()
+                centerView.mAlbumView.startRotating()
+                centerView.mAlbumView.pauseRotating()
+                centerView.mAlbumView.resumeRotating()
+                UIView.animateWithDuration(0.5, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {() -> Void in
+                    centerView.needleImageView.transform = centerView.needleOrignTransfrom
+                    
+                    }, completion: {(finish: Bool) -> Void in
+                        
+                })
+
             })
         
         self.palyer.startPlaying(WorkMode.FM, url: url)

@@ -20,6 +20,7 @@
 		F3290B691C924D6F00CF6EF2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3290B671C924D6F00CF6EF2 /* LaunchScreen.storyboard */; };
 		F3290B741C924D6F00CF6EF2 /* NextPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3290B731C924D6F00CF6EF2 /* NextPlayerTests.swift */; };
 		F3290B7F1C924D6F00CF6EF2 /* NextPlayerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3290B7E1C924D6F00CF6EF2 /* NextPlayerUITests.swift */; };
+		F39256B61CA0D32100C84429 /* ProgressProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39256B51CA0D32100C84429 /* ProgressProtocol.swift */; };
 		F3D5E5901C9E70A300B57D16 /* NetWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D5E58F1C9E70A300B57D16 /* NetWork.swift */; };
 		F3D5E5941C9E7C7400B57D16 /* TypesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D5E5931C9E7C7400B57D16 /* TypesTableViewController.swift */; };
 		F3D5E5961C9E8FF500B57D16 /* NetworkProprotocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D5E5951C9E8FF500B57D16 /* NetworkProprotocol.swift */; };
@@ -66,6 +67,7 @@
 		F3290B7A1C924D6F00CF6EF2 /* NextPlayerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NextPlayerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3290B7E1C924D6F00CF6EF2 /* NextPlayerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextPlayerUITests.swift; sourceTree = "<group>"; };
 		F3290B801C924D6F00CF6EF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F39256B51CA0D32100C84429 /* ProgressProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressProtocol.swift; sourceTree = "<group>"; };
 		F3D5E58F1C9E70A300B57D16 /* NetWork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetWork.swift; sourceTree = "<group>"; };
 		F3D5E5931C9E7C7400B57D16 /* TypesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypesTableViewController.swift; sourceTree = "<group>"; };
 		F3D5E5951C9E8FF500B57D16 /* NetworkProprotocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkProprotocol.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				F300A39A1C983CA4000EAD41 /* NextPlayerMediaPlayer.swift */,
+				F39256B51CA0D32100C84429 /* ProgressProtocol.swift */,
 			);
 			name = MediaPlayer;
 			sourceTree = "<group>";
@@ -407,6 +410,7 @@
 				F3E8991F1C92992B006BEEA9 /* NextPlayerRadioImageView.swift in Sources */,
 				F3290B5E1C924D6F00CF6EF2 /* ViewController.swift in Sources */,
 				F3D5E5941C9E7C7400B57D16 /* TypesTableViewController.swift in Sources */,
+				F39256B61CA0D32100C84429 /* ProgressProtocol.swift in Sources */,
 				F3290B5C1C924D6F00CF6EF2 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
