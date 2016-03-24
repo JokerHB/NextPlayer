@@ -20,6 +20,16 @@ class TypesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // MARK: Gesture - slip
+        //右划
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(ViewController.handleSwipeGesture(_:)))
+        self.view.addGestureRecognizer(swipeGesture)
+        //左划
+        let swipeLeftGesture = UISwipeGestureRecognizer(target: self, action: #selector(ViewController.handleSwipeGesture(_:)))
+        swipeLeftGesture.direction = UISwipeGestureRecognizerDirection.Left //不设置是右
+        self.view.addGestureRecognizer(swipeLeftGesture)
+
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -41,19 +51,28 @@ class TypesTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return self.channelData.count
+        return self.channelData.count + 1
 //        return 10
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "TypesCell")
-        let rowData = self.channelData[indexPath.row] as! NSDictionary
-        
-        cell.textLabel?.text = rowData["name"] as? String
-        
-        print("row data \(rowData)")
-        
-        return cell
+        if self.channelData.count == 0 {
+            let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "TypesCell")
+            
+            cell.textLabel?.text = "风格频道"
+            
+            return cell
+        } else {
+            
+            let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "TypesCell")
+            let rowData = self.channelData[indexPath.row] as! NSDictionary
+            
+            cell.textLabel?.text = rowData["name"] as? String
+            
+            print("row data \(rowData)")
+            
+            return cell
+        }
     }
 
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -79,6 +98,30 @@ class TypesTableViewController: UITableViewController {
             // do sth
         })
 
+    }
+    
+    func handleSwipeGesture(sender: UISwipeGestureRecognizer){
+        //划动的方向
+        let direction = sender.direction
+        //判断是上下左右
+        switch (direction){
+        case UISwipeGestureRecognizerDirection.Left:
+            print("Left")
+            
+            
+            break
+        case UISwipeGestureRecognizerDirection.Right:
+            print("Right")
+            
+            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            appDelegate.drawerViewController.closeDrawer(KGDrawerSide.Right, animated: true, complete: {(finished: Bool) -> Void in
+                
+            })
+
+            break
+        default:
+            break;
+        }
     }
     
     /*

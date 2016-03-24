@@ -27,6 +27,16 @@ class SongsTableViewController: UITableViewController, HttpProtocol {
         super.viewDidLoad()
         
         self.infoGetFromHttp.delegate = self
+        
+        // MARK: Gesture - slip
+        //右划
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(ViewController.handleSwipeGesture(_:)))
+        self.view.addGestureRecognizer(swipeGesture)
+        //左划
+        let swipeLeftGesture = UISwipeGestureRecognizer(target: self, action: #selector(ViewController.handleSwipeGesture(_:)))
+        swipeLeftGesture.direction = UISwipeGestureRecognizerDirection.Left //不设置是右
+        self.view.addGestureRecognizer(swipeLeftGesture)
+
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -171,6 +181,28 @@ class SongsTableViewController: UITableViewController, HttpProtocol {
                     self.tableView.reloadData()
                 }
             }
+        }
+    }
+    
+    func handleSwipeGesture(sender: UISwipeGestureRecognizer){
+        //划动的方向
+        let direction = sender.direction
+        //判断是上下左右
+        switch (direction){
+        case UISwipeGestureRecognizerDirection.Left:
+            print("Left")
+            
+            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            appDelegate.drawerViewController.closeDrawer(KGDrawerSide.Left, animated: true, complete: {(finished: Bool) -> Void in
+                
+            })
+            
+            break
+        case UISwipeGestureRecognizerDirection.Right:
+            print("Right")
+            break
+        default:
+            break;
         }
     }
     
