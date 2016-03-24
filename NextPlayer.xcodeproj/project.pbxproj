@@ -146,9 +146,9 @@
 			children = (
 				F3E8991E1C92992B006BEEA9 /* NextPlayerRadioImageView.swift */,
 				F3290B5D1C924D6F00CF6EF2 /* ViewController.swift */,
-				F3290B5F1C924D6F00CF6EF2 /* NextPlayer.storyboard */,
 				F3D5E5991C9E975200B57D16 /* SongsTableViewController.swift */,
 				F3D5E5931C9E7C7400B57D16 /* TypesTableViewController.swift */,
+				F3290B5F1C924D6F00CF6EF2 /* NextPlayer.storyboard */,
 			);
 			name = Player;
 			sourceTree = "<group>";
@@ -552,11 +552,13 @@
 			baseConfigurationReference = ECAD8118C5EC656CDD18012B /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = NextPlayer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joker.NextPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};
 			name = Debug;
@@ -566,11 +568,13 @@
 			baseConfigurationReference = 0D3FFD98BB9D2F567EB9CEAD /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = NextPlayer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joker.NextPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};
 			name = Release;

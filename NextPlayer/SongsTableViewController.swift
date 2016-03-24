@@ -8,17 +8,25 @@
 
 import UIKit
 import KGFloatingDrawer
+import KVNProgress
 
-class SongsTableViewController: UITableViewController {
-
+class SongsTableViewController: UITableViewController, HttpProtocol {
+    var infoGetFromHttp = HttpController()
+    
     var imageCache = Dictionary<String, UIImage>()
     
-    var tableData = NSArray()
+    var tableData = NSMutableArray()
     
     var palyer = NextPlayerMediaPlayer.playerInstance
     
+    var count_data = 1
+    
+    var count_image = 1
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.infoGetFromHttp.delegate = self
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -48,38 +56,39 @@ class SongsTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "SongCell")
-        let rowData = self.tableData[indexPath.row] as! NSDictionary
+        let arrayData = self.tableData[indexPath.row] as! NSArray
+        let rowData = arrayData[0] as! NSDictionary
         let url = rowData["picture"] as! String
         let imgUrl = NSURL(string: url)
         let request = NSURLRequest(URL: imgUrl!)
         
 //        cell.imageView?.image = UIImage(named: "test")
         
-        if let image = self.imageCache[url] {
-            cell.imageView?.image = image
-        } else {
-            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: {(response: NSURLResponse?, data: NSData?, error: NSError?) -> Void in
-                
-                if let _data = data {
-                    let img = UIImage(data: _data)
-                    
-                    self.imageCache[url] = img
-                    cell.imageView?.image = img
-                } else {
-                    cell.imageView?.image = UIImage(named: "test")
-                }
-            })
-        }
+//        if let image = self.imageCache[url] {
+//            cell.imageView?.image = image
+//        } else {
+//            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: {(response: NSURLResponse?, data: NSData?, error: NSError?) -> Void in
+//                
+//                if let _data = data {
+//                    let img = UIImage(data: _data)
+//                    
+//                    self.imageCache[url] = img
+//                    cell.imageView?.image = img
+//                } else {
+//                    cell.imageView?.image = UIImage(named: "test")
+//                }
+//            })
+//        }
         
-        cell.textLabel?.text = rowData["title"] as! String
-        cell.detailTextLabel?.text = rowData["artist"] as! String
+        cell.textLabel?.text = rowData["title"] as? String
+        cell.detailTextLabel?.text = rowData["artist"] as? String
         
         return cell
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("select \(indexPath.row)")
-        let rowData = self.tableData[indexPath.row] as! NSDictionary
+        let rowData = (self.tableData[indexPath.row] as! NSArray)[0] as! NSDictionary
         let url = rowData["url"] as! String
         
         self.tableView.deselectRowAtIndexPath(self.tableView.indexPathForSelectedRow!, animated: true)
@@ -87,7 +96,7 @@ class SongsTableViewController: UITableViewController {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         appDelegate.drawerViewController.closeDrawer(KGDrawerSide.Left, animated: true, complete: {(finished: Bool) -> Void in
                 let centerView = appDelegate.drawerViewController.centerViewController as! ViewController
-                let songData = self.tableData[indexPath.row] as! NSDictionary
+                let songData = rowData
                 let url_pic = songData["picture"] as! String
                 let imgUrl = NSURL(string: url_pic)
                 let request = NSURLRequest(URL: imgUrl!)
@@ -129,6 +138,40 @@ class SongsTableViewController: UITableViewController {
         UIView.animateWithDuration(0.25, animations: {() -> Void in
             cell.layer.transform = CATransform3DMakeScale(1, 1, 1)
         })
+    }
+    
+    func didReceiveResults(results: NSDictionary?) {
+        if let _results = results {
+            if let _songData = _results["song"] as? NSArray {
+                self.tableData.addObject(_songData)
+                
+                let songData = _songData[0] as! NSDictionary
+                let url_pic = songData["picture"] as! String
+                let imgUrl = NSURL(string: url_pic)
+                let request = NSURLRequest(URL: imgUrl!)
+                
+//                if nil == self.imageCache[url_pic] {
+//                    NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: {(response: NSURLResponse?, data: NSData?, error: NSError?) -> Void in
+//                        
+//                        if let _data = data {
+//                            let img = UIImage(data: _data)
+//                            
+//                            self.count_image += 1
+//                            self.imageCache[url_pic] = img
+//                            
+//                            self.tableView.reloadData()
+//                        }
+//                    })
+//                }
+                self.count_data += 1
+                
+                if self.count_data == 20 {
+                    self.count_data = 1
+                    KVNProgress.dismiss()
+                    self.tableView.reloadData()
+                }
+            }
+        }
     }
     
     /*

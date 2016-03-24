@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -125,6 +125,7 @@
                             <constraint firstItem="wO7-MZ-gsj" firstAttribute="top" secondItem="e5g-6x-LVe" secondAttribute="top" id="E1o-SK-Blb"/>
                             <constraint firstItem="e96-4d-fMj" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-20" id="FD8-Wo-2Fq"/>
                             <constraint firstItem="cen-lK-qar" firstAttribute="width" secondItem="j0v-M0-YZZ" secondAttribute="width" id="GZJ-Mt-079"/>
+                            <constraint firstItem="j0v-M0-YZZ" firstAttribute="top" secondItem="cen-lK-qar" secondAttribute="bottom" constant="-21" id="JL7-t5-WEW"/>
                             <constraint firstItem="7xI-jK-eIW" firstAttribute="leading" secondItem="ANU-Lm-Glr" secondAttribute="leading" id="JOU-Ld-n7T"/>
                             <constraint firstItem="cen-lK-qar" firstAttribute="height" secondItem="j0v-M0-YZZ" secondAttribute="height" id="PJx-ad-XCl"/>
                             <constraint firstItem="7xI-jK-eIW" firstAttribute="top" secondItem="VwY-hb-xgn" secondAttribute="bottom" constant="80" id="QdF-dK-Lga"/>

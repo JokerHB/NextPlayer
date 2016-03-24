@@ -10,6 +10,7 @@ import UIKit
 import KVNProgress
 import KGFloatingDrawer
 import MediaPlayer
+import KVNProgress
 
 class ViewController: UIViewController, HttpProtocol,ChannelProtocol, ProgressProtocol, UIActionSheetDelegate  {
     @IBOutlet weak var mAlbumView: NextPlayerRadioImageView!
@@ -87,18 +88,23 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, ProgressPr
         
         // MARK: Gesture - slip
         //右划
-        let swipeGesture = UISwipeGestureRecognizer(target: self, action: "handleSwipeGesture:")
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(ViewController.handleSwipeGesture(_:)))
         self.view.addGestureRecognizer(swipeGesture)
         //左划
-        let swipeLeftGesture = UISwipeGestureRecognizer(target: self, action: "handleSwipeGesture:")
+        let swipeLeftGesture = UISwipeGestureRecognizer(target: self, action: #selector(ViewController.handleSwipeGesture(_:)))
         swipeLeftGesture.direction = UISwipeGestureRecognizerDirection.Left //不设置是右
         self.view.addGestureRecognizer(swipeLeftGesture)
         
         // MARK: Golable NSNotification
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "getNextSong:", name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.getNextSong(_:)), name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
     }
 
+    override func viewWillAppear(animated: Bool) {
+        KVNProgress.showWithStatus("载入中...")
+    }
+    
     override func viewDidAppear(animated: Bool) {
+        KVNProgress.dismiss()
         super.viewDidAppear(animated)
     }
     
@@ -168,7 +174,6 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, ProgressPr
                     }
                     
                     typesView.delegate = self
-                    
                 }
                 
                 break
@@ -179,11 +184,15 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, ProgressPr
                 appDelegate.drawerViewController.toggleDrawer(KGDrawerSide.Left, animated: true) { (finished) -> Void in
                     
                     let songsView = appDelegate.drawerViewController.leftViewController as! SongsTableViewController
-                    
-                    songsView.tableData = self.tableData as NSArray
-                    songsView.imageCache = self.imageCache
-                    songsView.tableView.reloadData()
-            }
+                    if self.lastSongURL != nil {
+                        songsView.imageCache.removeAll()
+                        songsView.tableData.removeAllObjects()
+                        KVNProgress.showWithStatus("载入中...")
+                        for _ in 1...20 {
+                            songsView.infoGetFromHttp.onSearch(self.lastSongURL!)
+                        }
+                    }
+                }
             default:
                 break;
         }
@@ -266,7 +275,7 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, ProgressPr
     }
     
     func updateProcess(currentTime: String, endTime: String, process: Float) {
-        print("update process \(currentTime)    \(endTime)   \(process)")
+//        print("update process \(currentTime)    \(endTime)   \(process)")
         self.progressView.setProgress(process, animated: true)
         self.endTimeLabel.text = endTime
         self.cuttentTimeLabel.text = currentTime

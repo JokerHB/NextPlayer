@@ -69,7 +69,7 @@ class NextPlayerMediaPlayer: NSObject {
             self.timer?.invalidate()
             self.currentTimeText = "00:00"
             self.endTimeText = self.timerFormater(self.audioPlayer.duration)
-            self.timer = NSTimer.scheduledTimerWithTimeInterval(0.4, target: self, selector: "updateTime", userInfo: nil, repeats: true)
+            self.timer = NSTimer.scheduledTimerWithTimeInterval(0.4, target: self, selector: #selector(NextPlayerMediaPlayer.updateTime), userInfo: nil, repeats: true)
             self.timer?.fire()
         } else {
             self.workmode = WorkMode.LOCAL
@@ -85,7 +85,7 @@ class NextPlayerMediaPlayer: NSObject {
     func resumePlaying() {
         self.audioPlayer.play()
         self.playstate = PlayState.PLAYING
-        self.timer = NSTimer.scheduledTimerWithTimeInterval(0.4, target: self, selector: "updateTime", userInfo: nil, repeats: true)
+        self.timer = NSTimer.scheduledTimerWithTimeInterval(0.4, target: self, selector: #selector(NextPlayerMediaPlayer.updateTime), userInfo: nil, repeats: true)
         self.timer?.fire()
     }
     
