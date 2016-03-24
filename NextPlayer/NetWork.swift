@@ -20,7 +20,7 @@ class HttpController: NSObject {
             do {
                 if var _data = data {
                     let jsonResult: NSDictionary = try NSJSONSerialization.JSONObjectWithData(_data, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
-                    print(jsonResult)
+//                    print(jsonResult)
                     self.delegate?.didReceiveResults(jsonResult)
                 } else {
                     self.delegate?.didReceiveResults(nil)

@@ -161,7 +161,7 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, ProgressPr
         //判断是上下左右
         switch (direction){
             case UISwipeGestureRecognizerDirection.Left:
-                print("Left")
+//                print("Left")
                 
                 let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
                 appDelegate.drawerViewController.toggleDrawer(KGDrawerSide.Right, animated: true) { (finished) -> Void in
@@ -178,7 +178,7 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, ProgressPr
                 
                 break
             case UISwipeGestureRecognizerDirection.Right:
-                print("Right")
+//                print("Right")
             
                 let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
                 appDelegate.drawerViewController.toggleDrawer(KGDrawerSide.Left, animated: true) { (finished) -> Void in
@@ -269,7 +269,7 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, ProgressPr
         self.endTimeLabel.text = "--:--"
         self.cuttentTimeLabel.text = "--:--"
         if let _lastSongURL = self.lastSongURL {
-            print("next song on search")
+//            print("next song on search")
             self.infoGetFromHttp.onSearch(_lastSongURL)
         }
     }

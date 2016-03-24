@@ -59,58 +59,71 @@ class SongsTableViewController: UITableViewController, HttpProtocol {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return self.tableData.count
+        return self.tableData.count + 1
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "SongCell")
-        let arrayData = self.tableData[indexPath.row] as! NSArray
-        let rowData = arrayData[0] as! NSDictionary
-        let url = rowData["picture"] as! String
-        let imgUrl = NSURL(string: url)
-        let request = NSURLRequest(URL: imgUrl!)
+        if indexPath.row == 0 {
+             let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "SongCell")
+            
+             cell.textLabel?.text = "随机歌曲列表"
+             cell.textLabel?.textColor = UIColor.blueColor()
+            
+             return cell
+        } else {
+            let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "SongCell")
+            let arrayData = self.tableData[indexPath.row - 1] as! NSArray
+            let rowData = arrayData[0] as! NSDictionary
+            let url = rowData["picture"] as! String
+            let imgUrl = NSURL(string: url)
+            let request = NSURLRequest(URL: imgUrl!)
+            
+            //        cell.imageView?.image = UIImage(named: "test")
+            
+            //        if let image = self.imageCache[url] {
+            //            cell.imageView?.image = image
+            //        } else {
+            //            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: {(response: NSURLResponse?, data: NSData?, error: NSError?) -> Void in
+            //
+            //                if let _data = data {
+            //                    let img = UIImage(data: _data)
+            //
+            //                    self.imageCache[url] = img
+            //                    cell.imageView?.image = img
+            //                } else {
+            //                    cell.imageView?.image = UIImage(named: "test")
+            //                }
+            //            })
+            //        }
+            
+            cell.textLabel?.text = rowData["title"] as? String
+            cell.detailTextLabel?.text = rowData["artist"] as? String
+            
+            return cell
+
+        }
         
-//        cell.imageView?.image = UIImage(named: "test")
-        
-//        if let image = self.imageCache[url] {
-//            cell.imageView?.image = image
-//        } else {
-//            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: {(response: NSURLResponse?, data: NSData?, error: NSError?) -> Void in
-//                
-//                if let _data = data {
-//                    let img = UIImage(data: _data)
-//                    
-//                    self.imageCache[url] = img
-//                    cell.imageView?.image = img
-//                } else {
-//                    cell.imageView?.image = UIImage(named: "test")
-//                }
-//            })
-//        }
-        
-        cell.textLabel?.text = rowData["title"] as? String
-        cell.detailTextLabel?.text = rowData["artist"] as? String
-        
-        return cell
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print("select \(indexPath.row)")
-        let rowData = (self.tableData[indexPath.row] as! NSArray)[0] as! NSDictionary
-        let url = rowData["url"] as! String
-        
+//        print("select \(indexPath.row)")
         self.tableView.deselectRowAtIndexPath(self.tableView.indexPathForSelectedRow!, animated: true)
         
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        appDelegate.drawerViewController.closeDrawer(KGDrawerSide.Left, animated: true, complete: {(finished: Bool) -> Void in
+        if indexPath.row != 0 {
+            let rowData = (self.tableData[indexPath.row - 1] as! NSArray)[0] as! NSDictionary
+            let url = rowData["url"] as! String
+            
+            
+            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            appDelegate.drawerViewController.closeDrawer(KGDrawerSide.Left, animated: true, complete: {(finished: Bool) -> Void in
                 let centerView = appDelegate.drawerViewController.centerViewController as! ViewController
                 let songData = rowData
                 let url_pic = songData["picture"] as! String
                 let imgUrl = NSURL(string: url_pic)
                 let request = NSURLRequest(URL: imgUrl!)
-            
+                
                 if let image = self.imageCache[url_pic] {
                     centerView.onSetImage(image)
                 } else {
@@ -136,10 +149,11 @@ class SongsTableViewController: UITableViewController, HttpProtocol {
                     }, completion: {(finish: Bool) -> Void in
                         
                 })
-
+                
             })
-        
-        self.palyer.startPlaying(WorkMode.FM, url: url)
+            
+            self.palyer.startPlaying(WorkMode.FM, url: url)
+        }
     }
 
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -190,7 +204,7 @@ class SongsTableViewController: UITableViewController, HttpProtocol {
         //判断是上下左右
         switch (direction){
         case UISwipeGestureRecognizerDirection.Left:
-            print("Left")
+//            print("Left")
             
             let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
             appDelegate.drawerViewController.closeDrawer(KGDrawerSide.Left, animated: true, complete: {(finished: Bool) -> Void in
@@ -199,7 +213,7 @@ class SongsTableViewController: UITableViewController, HttpProtocol {
             
             break
         case UISwipeGestureRecognizerDirection.Right:
-            print("Right")
+//            print("Right")
             break
         default:
             break;

@@ -56,20 +56,21 @@ class TypesTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if self.channelData.count == 0 {
+        if indexPath.row == 0{
             let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "TypesCell")
             
             cell.textLabel?.text = "风格频道"
+            cell.textLabel?.textColor = UIColor.blueColor()
             
             return cell
         } else {
             
             let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "TypesCell")
-            let rowData = self.channelData[indexPath.row] as! NSDictionary
+            let rowData = self.channelData[indexPath.row - 1] as! NSDictionary
             
             cell.textLabel?.text = rowData["name"] as? String
             
-            print("row data \(rowData)")
+//            print("row data \(rowData)")
             
             return cell
         }
@@ -84,20 +85,20 @@ class TypesTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print("select \(indexPath.row)")
-        let rowData = self.channelData[indexPath.row] as! NSDictionary
-        let channel_id = rowData["channel_id"]! as AnyObject
-        let channel = "channel=\(channel_id)"
-        
-        self.delegate?.onChnageChannel(channel)
-        
+//        print("select \(indexPath.row)")
+        if indexPath.row != 0 {
+            let rowData = self.channelData[indexPath.row - 1] as! NSDictionary
+            let channel_id = rowData["channel_id"]! as AnyObject
+            let channel = "channel=\(channel_id)"
+            
+            self.delegate?.onChnageChannel(channel)
+            
+            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            appDelegate.drawerViewController.closeDrawer(KGDrawerSide.Right, animated: true, complete: {(finished: Bool) -> Void in
+                // do sth
+            })
+        }
         self.tableView.deselectRowAtIndexPath(self.tableView.indexPathForSelectedRow!, animated: true)
-        
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        appDelegate.drawerViewController.closeDrawer(KGDrawerSide.Right, animated: true, complete: {(finished: Bool) -> Void in
-            // do sth
-        })
-
     }
     
     func handleSwipeGesture(sender: UISwipeGestureRecognizer){
@@ -106,12 +107,12 @@ class TypesTableViewController: UITableViewController {
         //判断是上下左右
         switch (direction){
         case UISwipeGestureRecognizerDirection.Left:
-            print("Left")
+//            print("Left")
             
             
             break
         case UISwipeGestureRecognizerDirection.Right:
-            print("Right")
+//            print("Right")
             
             let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
             appDelegate.drawerViewController.closeDrawer(KGDrawerSide.Right, animated: true, complete: {(finished: Bool) -> Void in

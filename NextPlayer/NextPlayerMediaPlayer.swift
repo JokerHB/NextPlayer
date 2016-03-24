@@ -37,7 +37,7 @@ class NextPlayerMediaPlayer: NSObject {
     private override init() {
         super.init()
         
-        print("NextPlayerMediaPlayer Object Created")
+//        print("NextPlayerMediaPlayer Object Created")
     }
     
     func getState() -> PlayState? {
