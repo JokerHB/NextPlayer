@@ -143,13 +143,7 @@ class SongsTableViewController: UITableViewController, HttpProtocol {
                 centerView.mAlbumView.startRotating()
                 centerView.mAlbumView.pauseRotating()
                 centerView.mAlbumView.resumeRotating()
-                UIView.animateWithDuration(0.5, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {() -> Void in
-                    centerView.needleImageView.transform = centerView.needleOrignTransfrom
-                    
-                    }, completion: {(finish: Bool) -> Void in
-                        
-                })
-                
+                centerView.onSetPlay()
             })
             
             self.palyer.startPlaying(WorkMode.FM, url: url)

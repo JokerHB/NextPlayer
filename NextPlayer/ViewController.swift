@@ -14,6 +14,8 @@ import KVNProgress
 
 class ViewController: UIViewController, HttpProtocol,ChannelProtocol, ProgressProtocol, UIActionSheetDelegate  {
     @IBOutlet weak var mAlbumView: NextPlayerRadioImageView!
+    
+    @IBOutlet weak var btn_play: UIButton!
 
     @IBOutlet weak var mVisualEffectView: UIImageView!
     
@@ -30,6 +32,10 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, ProgressPr
     var channelData = NSArray()
     
     var imageCache = Dictionary<String, UIImage>()
+    
+    var lastSongCache = NSMutableArray()
+    
+    var pLastSongCache: Int = 0
     
     var lastSongURL: String?
     
@@ -58,8 +64,17 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, ProgressPr
         self.mVisualEffectView.image = UIImage(named: "back")
         self.mVisualEffectView.addSubview(visualEffect)
         
+        // MARK: Gesture -add gesture action in radio image
+        //        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("radioTapped:"))
+        //        self.mAlbumView.userInteractionEnabled = true
+        //        self.mAlbumView.addGestureRecognizer(tapGestureRecognizer)
+        self.mAlbumView.image = UIImage(named: "cm2_play_disc_fm_default")
+        //        self.mAlbumView.albumView?.image = UIImage(named: "test")
+        //        self.mAlbumView.startRotating()
+        //        self.isPause = false
+        
         // MARK: Needle 
-        self.needleImageView = UIImageView(frame: CGRectMake(view.bounds.width / 2 - 50, view.bounds.height / 10, 96, 153))
+        self.needleImageView = UIImageView(frame: CGRectMake(view.bounds.width / 2 - 50, view.bounds.height / 2 - 330, 96, 153))
         self.needleImageView.image = UIImage(named: "cm2_play_disc_needle")
         self.setArchorPoint(CGPoint(x: 0.25, y: 0.16), view: self.needleImageView)
         self.needleOrignTransfrom = self.needleImageView.transform
@@ -70,15 +85,6 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, ProgressPr
             }, completion: {(finish: Bool) -> Void in
                 
         })
-        
-        // MARK: Gesture -add gesture action in radio image
-//        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("radioTapped:"))
-//        self.mAlbumView.userInteractionEnabled = true
-//        self.mAlbumView.addGestureRecognizer(tapGestureRecognizer)
-        self.mAlbumView.image = UIImage(named: "cm2_play_disc_fm_default")
-//        self.mAlbumView.albumView?.image = UIImage(named: "test")
-//        self.mAlbumView.startRotating()
-//        self.isPause = false
         
         // MARK: progroess bar
         self.progressView.progress = 0.0
@@ -115,35 +121,99 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, ProgressPr
     
     @IBAction func PlayMusic(sender: AnyObject) {
         if self.player.getState() == PlayState.PAUSING {
-            UIView.animateWithDuration(0.5, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {() -> Void in
-                self.needleImageView.transform = self.needleOrignTransfrom
-                
-                }, completion: {(finish: Bool) -> Void in
-                    
-            })
-
-            self.isPause = false
-            self.mAlbumView.resumeRotating()
-            self.player.resumePlaying()
+            self.onSetPlay()
+        } else if self.player.getState() == PlayState.PLAYING {
+            self.onSetPause()
         }
     }
+ 
+    @IBAction func NextMusic(sender: AnyObject) {
+        self.getNextSong(nil)
+    }
     
-    
-    @IBAction func PauseMusic(sender: AnyObject) {
-        if self.player.getState() == PlayState.PLAYING {
+    @IBAction func LastMusic(sender: AnyObject) {
+        if self.lastSongCache.count != 0 {
+            if self.pLastSongCache == 0 {
+                self.pLastSongCache = self.lastSongCache.count
+            }
+            self.onSetPause()
+            self.endTimeLabel.text = "--:--"
+            self.cuttentTimeLabel.text = "--:--"
+            self.progressView.setProgress(0.0, animated: true)
+            self.player.stopPlaying()
             
-            UIView.animateWithDuration(0.5, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {() -> Void in
-                self.needleImageView.transform = CGAffineTransformMakeRotation(-CGFloat(M_PI / 5.0))
-                
-                }, completion: {(finish: Bool) -> Void in
+            let songData = self.lastSongCache[self.pLastSongCache - 1] as! NSDictionary
+            let url_pic = songData["picture"] as! String
+            let imgUrl = NSURL(string: url_pic)
+            let request = NSURLRequest(URL: imgUrl!)
+            let url_song = songData["url"] as! String
+            
+            if let image = self.imageCache[url_pic] {
+                self.onSetImage(image)
+            } else {
+                NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: {(response: NSURLResponse?, data: NSData?, error: NSError?) -> Void in
                     
-            })
+                    if let _data = data {
+                        let img = UIImage(data: _data)
+                        
+                        self.imageCache[url_pic] = img
+                        self.onSetImage(img!)
+                        
+                    } else {
+                        self.mVisualEffectView.image = UIImage(named: "back")
+                    }
+                })
+            }
 
-            self.isPause = true
+            
+            self.player.startPlaying(WorkMode.FM, url: url_song)
+            self.mAlbumView.startRotating()
             self.mAlbumView.pauseRotating()
-            self.player.pausePlaying()
+            self.mAlbumView.resumeRotating()
+            self.onSetPlay()
         }
     }
+    
+    func onSetPlay() {
+        UIView.animateWithDuration(0.5, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {() -> Void in
+            self.needleImageView.transform = self.needleOrignTransfrom
+            
+            }, completion: {(finish: Bool) -> Void in
+                
+        })
+        
+        self.btn_play.setBackgroundImage(UIImage(named:"cm2_play_btn_pause"), forState: UIControlState.Normal)
+        
+        self.isPause = false
+        
+        self.mAlbumView.resumeRotating()
+        
+        self.player.resumePlaying()
+    }
+    
+    
+    func onSetPause() {
+        self.btn_play.setBackgroundImage(UIImage(named:"cm2_play_btn_play"), forState: UIControlState.Normal)
+        self.isPause = true
+        self.mAlbumView.pauseRotating()
+        self.player.pausePlaying()
+    }
+    
+//    @IBAction func PauseMusic(sender: AnyObject) {
+//        if self.player.getState() == PlayState.PLAYING {
+//            
+//            UIView.animateWithDuration(0.5, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {() -> Void in
+//                self.needleImageView.transform = CGAffineTransformMakeRotation(-CGFloat(M_PI / 5.0))
+//                
+//                }, completion: {(finish: Bool) -> Void in
+//                    
+//            })
+//
+//            self.isPause = true
+//            self.mAlbumView.pauseRotating()
+//            self.player.pausePlaying()
+//        }
+//    }
     
     func radioTapped(img: AnyObject){
         if self.isPause {
@@ -246,12 +316,10 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, ProgressPr
                 self.mAlbumView.startRotating()
                 self.mAlbumView.pauseRotating()
                 self.mAlbumView.resumeRotating()
-                UIView.animateWithDuration(0.5, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {() -> Void in
-                    self.needleImageView.transform = self.needleOrignTransfrom
-                    
-                    }, completion: {(finish: Bool) -> Void in
-                        
-                })
+                self.onSetPlay()
+                
+                self.lastSongCache.addObject(songData)
+                self.pLastSongCache = self.lastSongCache.count
             }
         }
     }
@@ -264,13 +332,18 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, ProgressPr
         self.lastSongURL = url
     }
     
-    func getNextSong(notification: NSNotification) {
-        self.mAlbumView.pauseRotating()
-        self.endTimeLabel.text = "--:--"
-        self.cuttentTimeLabel.text = "--:--"
-        if let _lastSongURL = self.lastSongURL {
-//            print("next song on search")
-            self.infoGetFromHttp.onSearch(_lastSongURL)
+    func getNextSong(notification: NSNotification?) {
+        if self.lastSongURL != nil{
+            self.onSetPause()
+            self.endTimeLabel.text = "--:--"
+            self.cuttentTimeLabel.text = "--:--"
+            self.progressView.setProgress(0.0, animated: true)
+            
+            if let _lastSongURL = self.lastSongURL {
+                //            print("next song on search")
+                self.player.stopPlaying()
+                self.infoGetFromHttp.onSearch(_lastSongURL)
+            }
         }
     }
     
