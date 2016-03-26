@@ -66,8 +66,10 @@ class SongsTableViewController: UITableViewController, HttpProtocol {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         if indexPath.row == 0 {
-             let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "SongCell")
+             let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "SongCell")
             
+             cell.textLabel?.textAlignment = NSTextAlignment.Center
+             cell.textLabel?.font = UIFont.systemFontOfSize(20.0)
              cell.textLabel?.text = "随机歌曲列表"
              cell.textLabel?.textColor = UIColor.blueColor()
             
@@ -100,6 +102,7 @@ class SongsTableViewController: UITableViewController, HttpProtocol {
             
             cell.textLabel?.text = rowData["title"] as? String
             cell.detailTextLabel?.text = rowData["artist"] as? String
+            cell.imageView?.image = UIImage(named: "cm2_songs_music")
             
             return cell
 

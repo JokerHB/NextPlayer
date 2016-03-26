@@ -57,8 +57,10 @@ class TypesTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.row == 0{
-            let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "TypesCell")
+            let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "TypesCell")
             
+            cell.textLabel?.textAlignment = NSTextAlignment.Center
+            cell.textLabel?.font = UIFont.systemFontOfSize(20.0)
             cell.textLabel?.text = "风格频道"
             cell.textLabel?.textColor = UIColor.blueColor()
             
@@ -68,6 +70,7 @@ class TypesTableViewController: UITableViewController {
             let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "TypesCell")
             let rowData = self.channelData[indexPath.row - 1] as! NSDictionary
             
+            cell.imageView?.image = UIImage(named: "cm2_channel_star")
             cell.textLabel?.text = rowData["name"] as? String
             
 //            print("row data \(rowData)")

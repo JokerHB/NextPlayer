@@ -133,7 +133,7 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, ProgressPr
     
     @IBAction func LastMusic(sender: AnyObject) {
         if self.lastSongCache.count != 0 {
-            if self.pLastSongCache == 0 {
+            if self.pLastSongCache <= 0 {
                 self.pLastSongCache = self.lastSongCache.count
             }
             self.onSetPause()
@@ -164,7 +164,8 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, ProgressPr
                     }
                 })
             }
-
+            
+            self.pLastSongCache -= 1
             
             self.player.startPlaying(WorkMode.FM, url: url_song)
             self.mAlbumView.startRotating()
@@ -193,7 +194,7 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, ProgressPr
     
     
     func onSetPause() {
-        self.btn_play.setBackgroundImage(UIImage(named:"cm2_play_btn_play"), forState: UIControlState.Normal)
+    self.btn_play.setBackgroundImage(UIImage(named:"cm2_play_btn_play"), forState: UIControlState.Normal)
         self.isPause = true
         self.mAlbumView.pauseRotating()
         self.player.pausePlaying()
