@@ -11,6 +11,7 @@ import KVNProgress
 import KGFloatingDrawer
 import MediaPlayer
 import KVNProgress
+import AVReachability
 
 class ViewController: UIViewController, HttpProtocol,ChannelProtocol, ProgressProtocol, UIActionSheetDelegate  {
     @IBOutlet weak var mAlbumView: NextPlayerRadioImageView!
@@ -236,15 +237,18 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, ProgressPr
                 
                 let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
                 appDelegate.drawerViewController.toggleDrawer(KGDrawerSide.Right, animated: true) { (finished) -> Void in
-                    
-                    let typesView = appDelegate.drawerViewController.rightViewController as! TypesTableViewController
-                    
-                    if typesView.channelData.count == 0 {
-                        typesView.channelData = self.channelData
-                        typesView.tableView.reloadData()
+                    if Reachability.isConnectedToNetwork() != true {
+                        KVNProgress.showErrorWithStatus("请检查网络连接")
+                    } else {
+                        let typesView = appDelegate.drawerViewController.rightViewController as! TypesTableViewController
+                        
+                        if typesView.channelData.count == 0 {
+                            typesView.channelData = self.channelData
+                            typesView.tableView.reloadData()
+                        }
+                        
+                        typesView.delegate = self
                     }
-                    
-                    typesView.delegate = self
                 }
                 
                 break
@@ -254,6 +258,10 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, ProgressPr
                 let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
                 appDelegate.drawerViewController.toggleDrawer(KGDrawerSide.Left, animated: true) { (finished) -> Void in
                     
+                    if Reachability.isConnectedToNetwork() != true {
+                        KVNProgress.showErrorWithStatus("请检查网络连接")
+                    } else {
+                    
                     let songsView = appDelegate.drawerViewController.leftViewController as! SongsTableViewController
                     if self.lastSongURL != nil {
                         songsView.imageCache.removeAll()
@@ -262,8 +270,16 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, ProgressPr
                         for _ in 1...20 {
                             songsView.infoGetFromHttp.onSearch(self.lastSongURL!)
                         }
+                    } else {
+                        songsView.imageCache.removeAll()
+                        songsView.tableData.removeAllObjects()
+                        KVNProgress.showWithStatus("载入中...")
+                        for _ in 1...20 {
+                            songsView.infoGetFromHttp.onSearch("https://douban.fm/j/mine/playlist?type=n&channel=0&from=mainsite")
+                        }
                     }
                 }
+            }
             default:
                 break;
         }
