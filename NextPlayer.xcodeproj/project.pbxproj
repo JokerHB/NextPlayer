@@ -20,6 +20,9 @@
 		F3290B691C924D6F00CF6EF2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3290B671C924D6F00CF6EF2 /* LaunchScreen.storyboard */; };
 		F3290B741C924D6F00CF6EF2 /* NextPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3290B731C924D6F00CF6EF2 /* NextPlayerTests.swift */; };
 		F3290B7F1C924D6F00CF6EF2 /* NextPlayerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3290B7E1C924D6F00CF6EF2 /* NextPlayerUITests.swift */; };
+		F32F39CA1CACC6E80048FA5E /* DataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32F39C91CACC6E80048FA5E /* DataBase.swift */; };
+		F32F39CD1CACC9A90048FA5E /* Song+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32F39CB1CACC9A90048FA5E /* Song+CoreDataProperties.swift */; };
+		F32F39CE1CACC9A90048FA5E /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32F39CC1CACC9A90048FA5E /* Song.swift */; };
 		F39256B61CA0D32100C84429 /* ProgressProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39256B51CA0D32100C84429 /* ProgressProtocol.swift */; };
 		F3D5E5901C9E70A300B57D16 /* NetWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D5E58F1C9E70A300B57D16 /* NetWork.swift */; };
 		F3D5E5941C9E7C7400B57D16 /* TypesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D5E5931C9E7C7400B57D16 /* TypesTableViewController.swift */; };
@@ -67,6 +70,9 @@
 		F3290B7A1C924D6F00CF6EF2 /* NextPlayerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NextPlayerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3290B7E1C924D6F00CF6EF2 /* NextPlayerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextPlayerUITests.swift; sourceTree = "<group>"; };
 		F3290B801C924D6F00CF6EF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F32F39C91CACC6E80048FA5E /* DataBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataBase.swift; sourceTree = "<group>"; };
+		F32F39CB1CACC9A90048FA5E /* Song+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Song+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F32F39CC1CACC9A90048FA5E /* Song.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		F39256B51CA0D32100C84429 /* ProgressProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressProtocol.swift; sourceTree = "<group>"; };
 		F3D5E58F1C9E70A300B57D16 /* NetWork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetWork.swift; sourceTree = "<group>"; };
 		F3D5E5931C9E7C7400B57D16 /* TypesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypesTableViewController.swift; sourceTree = "<group>"; };
@@ -178,6 +184,7 @@
 		F3290B5A1C924D6F00CF6EF2 /* NextPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				F32F39C81CACC6D20048FA5E /* DataBase */,
 				F3D5E58E1C9E708900B57D16 /* NetWork */,
 				F300A3A31C985173000EAD41 /* Views */,
 				F300A3991C983C79000EAD41 /* MediaPlayer */,
@@ -206,6 +213,16 @@
 				F3290B801C924D6F00CF6EF2 /* Info.plist */,
 			);
 			path = NextPlayerUITests;
+			sourceTree = "<group>";
+		};
+		F32F39C81CACC6D20048FA5E /* DataBase */ = {
+			isa = PBXGroup;
+			children = (
+				F32F39CC1CACC9A90048FA5E /* Song.swift */,
+				F32F39CB1CACC9A90048FA5E /* Song+CoreDataProperties.swift */,
+				F32F39C91CACC6E80048FA5E /* DataBase.swift */,
+			);
+			name = DataBase;
 			sourceTree = "<group>";
 		};
 		F3D5E58E1C9E708900B57D16 /* NetWork */ = {
@@ -408,9 +425,12 @@
 				F3D5E59A1C9E975200B57D16 /* SongsTableViewController.swift in Sources */,
 				F3D5E5901C9E70A300B57D16 /* NetWork.swift in Sources */,
 				F3E8991F1C92992B006BEEA9 /* NextPlayerRadioImageView.swift in Sources */,
+				F32F39CD1CACC9A90048FA5E /* Song+CoreDataProperties.swift in Sources */,
+				F32F39CA1CACC6E80048FA5E /* DataBase.swift in Sources */,
 				F3290B5E1C924D6F00CF6EF2 /* ViewController.swift in Sources */,
 				F3D5E5941C9E7C7400B57D16 /* TypesTableViewController.swift in Sources */,
 				F39256B61CA0D32100C84429 /* ProgressProtocol.swift in Sources */,
+				F32F39CE1CACC9A90048FA5E /* Song.swift in Sources */,
 				F3290B5C1C924D6F00CF6EF2 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

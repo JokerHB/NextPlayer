@@ -173,6 +173,11 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, ProgressPr
             self.mAlbumView.pauseRotating()
             self.mAlbumView.resumeRotating()
             self.onSetPlay()
+            
+            // save in database
+            DataBase.dataBaseInstence.insertData(songData["picture"] as! String, song_url: songData["url"] as! String, title: songData["title"] as! String, artist: songData["artist"] as! String, img: nil, song_data: nil
+            )
+            self.songViewReloadData()
         }
     }
     
@@ -254,32 +259,33 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, ProgressPr
                 break
             case UISwipeGestureRecognizerDirection.Right:
 //                print("Right")
-            
+    
                 let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                
                 appDelegate.drawerViewController.toggleDrawer(KGDrawerSide.Left, animated: true) { (finished) -> Void in
                     
-                    if Reachability.isConnectedToNetwork() != true {
-                        KVNProgress.showErrorWithStatus("请检查网络连接")
-                    } else {
-                    
-                    let songsView = appDelegate.drawerViewController.leftViewController as! SongsTableViewController
-                    if self.lastSongURL != nil {
-                        songsView.imageCache.removeAll()
-                        songsView.tableData.removeAllObjects()
-                        KVNProgress.showWithStatus("载入中...")
-                        for _ in 1...20 {
-                            songsView.infoGetFromHttp.onSearch(self.lastSongURL!)
-                        }
-                    } else {
-                        songsView.imageCache.removeAll()
-                        songsView.tableData.removeAllObjects()
-                        KVNProgress.showWithStatus("载入中...")
-                        for _ in 1...20 {
-                            songsView.infoGetFromHttp.onSearch("https://douban.fm/j/mine/playlist?type=n&channel=0&from=mainsite")
-                        }
-                    }
+//                    if Reachability.isConnectedToNetwork() != true {
+//                        KVNProgress.showErrorWithStatus("请检查网络连接")
+//                    } else {
+//                        
+//                        let songsView = appDelegate.drawerViewController.leftViewController as! SongsTableViewController
+//                        if self.lastSongURL != nil {
+//                            songsView.imageCache.removeAll()
+//                            songsView.tableData.removeAllObjects()
+//                            KVNProgress.showWithStatus("载入中...")
+//                            for _ in 1...20 {
+//                                songsView.infoGetFromHttp.onSearch(self.lastSongURL!)
+//                            }
+//                        } else {
+//                            songsView.imageCache.removeAll()
+//                            songsView.tableData.removeAllObjects()
+//                            KVNProgress.showWithStatus("载入中...")
+//                            for _ in 1...20 {
+//                                songsView.infoGetFromHttp.onSearch("https://douban.fm/j/mine/playlist?type=n&channel=0&from=mainsite")
+//                            }
+//                        }
+//                    }
                 }
-            }
             default:
                 break;
         }
@@ -337,6 +343,11 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, ProgressPr
                 
                 self.lastSongCache.addObject(songData)
                 self.pLastSongCache = self.lastSongCache.count
+                
+                // save in the database
+               DataBase.dataBaseInstence.insertData(songData["picture"] as! String, song_url: songData["url"] as! String, title: songData["title"] as! String, artist: songData["artist"] as! String, img: nil, song_data: nil
+                )
+                self.songViewReloadData()
             }
         }
     }
@@ -369,6 +380,13 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, ProgressPr
         self.progressView.setProgress(process, animated: true)
         self.endTimeLabel.text = endTime
         self.cuttentTimeLabel.text = currentTime
+    }
+    
+    func songViewReloadData() {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let songsView = appDelegate.drawerViewController.leftViewController as! SongsTableViewController
+        
+        songsView.tableView.reloadData()
     }
 }
 

@@ -17,6 +17,8 @@ class SongsTableViewController: UITableViewController, HttpProtocol {
     
     var tableData = NSMutableArray()
     
+    var songs: [Song]?
+    
     var palyer = NextPlayerMediaPlayer.playerInstance
     
     var count_data = 1
@@ -59,7 +61,8 @@ class SongsTableViewController: UITableViewController, HttpProtocol {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return self.tableData.count + 1
+//        return self.tableData.count + 1
+        return DataBase.dataBaseInstence.getCount() + 1
     }
 
     
@@ -70,16 +73,18 @@ class SongsTableViewController: UITableViewController, HttpProtocol {
             
              cell.textLabel?.textAlignment = NSTextAlignment.Center
              cell.textLabel?.font = UIFont.systemFontOfSize(20.0)
-             cell.textLabel?.text = "随机歌曲列表"
+             cell.textLabel?.text = "历史歌曲列表"
              cell.textLabel?.textColor = UIColor.blueColor()
             
              return cell
         } else {
+            self.songs = DataBase.dataBaseInstence.getAllObjects()
+            
+            let song = songs![indexPath.row - 1]
             let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "SongCell")
-            let arrayData = self.tableData[indexPath.row - 1] as! NSArray
-            let rowData = arrayData[0] as! NSDictionary
-            let url = rowData["picture"] as! String
-            let imgUrl = NSURL(string: url)
+            
+            let url = song.img_url
+            let imgUrl = NSURL(string: url!)
             let request = NSURLRequest(URL: imgUrl!)
             
             //        cell.imageView?.image = UIImage(named: "test")
@@ -100,8 +105,8 @@ class SongsTableViewController: UITableViewController, HttpProtocol {
             //            })
             //        }
             
-            cell.textLabel?.text = rowData["title"] as? String
-            cell.detailTextLabel?.text = rowData["artist"] as? String
+            cell.textLabel?.text = song.title!
+            cell.detailTextLabel?.text = song.artist!
             cell.imageView?.image = UIImage(named: "cm2_songs_music")
             
             return cell
@@ -115,19 +120,19 @@ class SongsTableViewController: UITableViewController, HttpProtocol {
         self.tableView.deselectRowAtIndexPath(self.tableView.indexPathForSelectedRow!, animated: true)
         
         if indexPath.row != 0 {
-            let rowData = (self.tableData[indexPath.row - 1] as! NSArray)[0] as! NSDictionary
-            let url = rowData["url"] as! String
-            
-            
+            self.songs = DataBase.dataBaseInstence.getAllObjects()
+            let rowData = songs![indexPath.row - 1]
+            let url = rowData.song_url
             let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            
             appDelegate.drawerViewController.closeDrawer(KGDrawerSide.Left, animated: true, complete: {(finished: Bool) -> Void in
                 let centerView = appDelegate.drawerViewController.centerViewController as! ViewController
                 let songData = rowData
-                let url_pic = songData["picture"] as! String
-                let imgUrl = NSURL(string: url_pic)
+                let url_pic = songData.img_url
+                let imgUrl = NSURL(string: url_pic!)
                 let request = NSURLRequest(URL: imgUrl!)
                 
-                if let image = self.imageCache[url_pic] {
+                if let image = self.imageCache[url_pic!] {
                     centerView.onSetImage(image)
                 } else {
                     NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: {(response: NSURLResponse?, data: NSData?, error: NSError?) -> Void in
@@ -135,7 +140,7 @@ class SongsTableViewController: UITableViewController, HttpProtocol {
                         if let _data = data {
                             let img = UIImage(data: _data)
                             
-                            self.imageCache[url_pic] = img
+                            self.imageCache[url_pic!] = img
                             centerView.onSetImage(img!)
                             
                         } else {
@@ -159,6 +164,24 @@ class SongsTableViewController: UITableViewController, HttpProtocol {
         UIView.animateWithDuration(0.25, animations: {() -> Void in
             cell.layer.transform = CATransform3DMakeScale(1, 1, 1)
         })
+    }
+    
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        if indexPath.row == 0 {
+            return false
+        }
+        return true
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete
+        {
+            let song = songs![indexPath.row - 1]
+            
+            DataBase.dataBaseInstence.deleteSong(song.title)
+            self.songs = DataBase.dataBaseInstence.getAllObjects()
+            self.tableView.reloadData()
+        }
     }
     
     func didReceiveResults(results: NSDictionary?) {

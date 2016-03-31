@@ -16,7 +16,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="D9H-oU-iCM">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="D9H-oU-iCM" id="j8S-bT-1TX">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
@@ -24,7 +24,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SongCell" id="dSF-rW-TMX">
-                                <rect key="frame" x="0.0" y="72" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="136" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dSF-rW-TMX" id="ofz-kN-IYS">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
@@ -37,11 +37,12 @@
                             <outlet property="delegate" destination="WyT-4b-pga" id="e87-xV-gqR"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="9KB-Tf-a9g"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qvO-TU-Zw5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-397.5" y="151.5"/>
+            <point key="canvasLocation" x="414.5" y="151.5"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -202,7 +203,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="234.5" y="151.5"/>
+            <point key="canvasLocation" x="1046.5" y="151.5"/>
         </scene>
         <!--Types Table View Controller-->
         <scene sceneID="yCR-9r-LnU">
@@ -239,7 +240,25 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IXw-Zy-S9A" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="837.5" y="151.5"/>
+            <point key="canvasLocation" x="1649.5" y="151.5"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="dmX-VH-vfd">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UR9-GI-a9p" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Mn8-CE-fji">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="WyT-4b-pga" kind="relationship" relationship="rootViewController" id="ddf-UG-pY1"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zqd-AS-OQY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-398" y="151"/>
         </scene>
     </scenes>
     <resources>
