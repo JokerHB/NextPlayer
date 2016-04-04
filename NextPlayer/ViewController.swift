@@ -65,6 +65,13 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, ProgressPr
         self.mVisualEffectView.image = UIImage(named: "back")
         self.mVisualEffectView.addSubview(visualEffect)
         
+//        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Light)
+//        let visualEffect = UIVisualEffectView.init(effect: blurEffect)
+//        visualEffect.alpha = 0.88
+//        visualEffect.frame = UIScreen.mainScreen().bounds
+//        self.mVisualEffectView.image = UIImage(named: "back")
+//        self.mVisualEffectView.addSubview(visualEffect)
+        
         // MARK: Gesture -add gesture action in radio image
         //        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("radioTapped:"))
         //        self.mAlbumView.userInteractionEnabled = true
@@ -79,7 +86,9 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, ProgressPr
         self.needleImageView.image = UIImage(named: "cm2_play_disc_needle")
         self.setArchorPoint(CGPoint(x: 0.25, y: 0.16), view: self.needleImageView)
         self.needleOrignTransfrom = self.needleImageView.transform
-        self.view.addSubview(self.needleImageView)
+        if UIDevice.currentDevice().model != "iPad" {
+             self.view.addSubview(self.needleImageView)
+        }
         UIView.animateWithDuration(0.5, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {() -> Void in
             self.needleImageView.transform = CGAffineTransformMakeRotation(-CGFloat(M_PI / 5.0))
             
@@ -108,6 +117,7 @@ class ViewController: UIViewController, HttpProtocol,ChannelProtocol, ProgressPr
 
     override func viewWillAppear(animated: Bool) {
         KVNProgress.showWithStatus("载入中...")
+
     }
     
     override func viewDidAppear(animated: Bool) {
